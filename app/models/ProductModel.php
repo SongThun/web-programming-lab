@@ -1,0 +1,158 @@
+<?php
+require_once __DIR__ . "../../db.php";
+
+class ProductModel
+{
+    private $db;
+    public function __construct()
+    {
+        $this->db = Database::get_instance();
+    }
+    public function get_categories()
+    {
+        $stmt = $this->db->prepare("SELECT * FROM categories");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $categories = $result->fetch_all(MYSQLI_ASSOC);
+        return $categories;
+    }
+    public function get_products_by_date($limit)
+    {
+        $sql = "SELECT p.*, c.catName 
+            FROM products p
+            JOIN categories c ON p.catID = c.catID
+            LIMIT ? ";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("i", $limit);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+    public function get_products($sort, $filter, $limit, $offset)
+    {
+        $sort_key = $sort['by'];
+        $sort_order = $sort['order'];
+
+        $categories = $filter['categories'];
+        $price_range = $filter['price_range'];
+        $title = trim($filter['title']);
+
+        // Build base SQL
+        $sql = "SELECT p.*, c.catName
+            FROM products p
+            JOIN categories c ON p.catID = c.catID
+            WHERE 1=1";
+
+        $params = [];
+        $types = "";
+
+        // Handle categories
+        if (!empty($categories)) {
+            $placeholders = implode(',', array_fill(0, count($categories), '?'));
+            $sql .= " AND c.catName IN ($placeholders)";
+            $params = array_merge($params, $categories);
+            $types .= str_repeat("s", count($categories)); // "s" because catName is a string
+        }
+        else {
+            return [];
+        }
+
+        // Handle price range
+        if (!empty($price_range)) {
+            $sql .= " AND p.price BETWEEN ? AND ?";
+            $params[] = $price_range[0];
+            $params[] = $price_range[1];
+            $types .= "dd";
+        }
+
+        // Handle title search
+        if (!empty($title)) {
+            $sql .= " AND p.title LIKE ?";
+            $params[] = "%$title%";
+            $types .= "s";
+        }
+
+        // Add sorting, limit, offset
+        $sql .= " ORDER BY p.$sort_key $sort_order LIMIT ? OFFSET ?";
+        $params[] = $limit;
+        $params[] = $offset;
+        $types .= "ii";
+
+        // Prepare and execute
+        $stmt = $this->db->prepare($sql);
+        if (!$stmt) {
+            throw new Exception("Failed to prepare statement: " . $this->db->error);
+        }
+        $stmt->bind_param($types, ...$params);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $products = $result->fetch_all(MYSQLI_ASSOC);
+
+        return $products;
+    }
+    public function get_total_count($filter)
+    {
+        $sql = "SELECT COUNT(*) as total
+            FROM products p
+            JOIN categories c ON p.catID = c.catID
+            WHERE 1=1";
+
+        $params = [];
+        $types = "";
+
+        if (!empty($filter['categories'])) {
+            $placeholders = implode(',', array_fill(0, count($filter['categories']), '?'));
+            $sql .= " AND c.catName IN ($placeholders)";
+            $params = array_merge($params, $filter['categories']);
+            $types .= str_repeat("s", count($filter['categories']));
+        }
+        else {
+            return 0;
+        }
+
+        if (!empty($filter['price_range'])) {
+            $sql .= " AND p.price BETWEEN ? AND ?";
+            $params[] = $filter['price_range'][0];
+            $params[] = $filter['price_range'][1];
+            $types .= "dd";
+        }
+
+        if (!empty($filter['title'])) {
+            $sql .= " AND p.title LIKE ?";
+            $params[] = "%" . trim($filter['title']) . "%";
+            $types .= "s";
+        }
+
+        $stmt = $this->db->prepare($sql);
+        if (!$stmt) {
+            throw new Exception("Failed to prepare count: " . $this->db->error);
+        }
+
+        $stmt->bind_param($types, ...$params);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+
+        return $row['total'];
+    }
+
+    public function get_total()
+    {
+        $stmt = $this->db->prepare("SELECT COUNT(*) AS total FROM products");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc()['total'];
+    }
+    public function get_item($id)
+    {
+        $sql = "SELECT p.*, c.catName 
+                FROM products p 
+                JOIN categories c ON p.catID = c.catID
+                WHERE p.id = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc();
+    }
+}

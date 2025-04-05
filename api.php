@@ -1,0 +1,62 @@
+<?php
+// Include necessary files (e.g., controllers, models)
+require_once __DIR__ . "/app/controllers/HomeController.php";
+require_once __DIR__ . "/app/controllers/ProductController.php";
+require_once __DIR__ . "/app/controllers/AuthController.php";
+require_once __DIR__ . "/app/controllers/UserController.php";
+
+
+session_start();
+
+$page = isset($_GET['page']) ? $_GET['page'] : 'home';
+
+$method = $_SERVER['REQUEST_METHOD'];
+// function sendResponse($status, $data = [], $message = '') {
+//     header("Content-Type: application/json");
+//     echo json_encode([
+//         'status' => $status,
+//         'data' => $data,
+//         'message' => $message
+//     ]);
+//     exit();
+// }
+
+// Check if the page is a valid API endpoint
+$valid_pages = ['home', 'product', 'about', 'login', 'register']; // Add all API endpoints here
+
+if (in_array($page, $valid_pages)) {
+    switch ($page) {
+        case 'home':
+            // Handle home page logic (can be left for HTML rendering if needed)
+            break;
+        case 'login':
+            $controller = new AuthController();
+            if ($method === 'POST') {
+                $controller->authorize();
+            }
+            break;
+        case 'register':
+            $controller = new AuthController();
+            if ($method === 'POST') {
+                $controller->register();
+            }
+            break;
+        case 'product':
+            $controller = new ProductController();
+            if ($method === 'POST') {
+                $controller->load_products();
+            }
+            break;
+        default:
+            break;
+    }
+} 
+
+$role = isset($_GET['role']) ? $_GET['role'] : 'guest';
+
+if ($role === 'user') {
+    if (isset($_GET['item'])) {
+        $controller = new UserController();
+        $controller->add_to_cart();
+    }
+}
