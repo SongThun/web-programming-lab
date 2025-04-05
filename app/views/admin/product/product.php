@@ -1,14 +1,14 @@
 <div>
     <div>
-        <button>Add product</button>
+        <a href="admin.php?page=product&action=add">Add product</a>
         <div id="filter-categories">
             <button value="all" class="btn-active">All</button>
             <?php foreach ($categories as $cat): ?>
-                <button value=<?= $cat['catName']?> ><?= $cat['catName'] ?></button>
+                <button value=<?= $cat['catID'] ?>><?= $cat['catName'] ?></button>
             <?php endforeach; ?>
         </div>
     </div>
-   
+
     <div>
         <?php require "product_utils.php" ?>
         <table>
@@ -27,10 +27,10 @@
                 <?php foreach ($products as $prod): ?>
                     <tr>
                         <td><?= $prod["id"] ?></td>
-                        <td><div>
-                            <span><?= $prod["catName"] ?></span>
-                            <span><?= $prod["title"] ?></span>
-                        </div></td>
+                        <td><a href=<?= "admin.php?page=product&action=edit&item=" . $prod['id'] ?>>
+                                <span><?= $prod["catName"] ?></span>
+                                <span><?= $prod["title"] ?></span>
+                            </a></td>
                         <td><?= $prod["price"] ?></td>
                         <td><?= $prod["salesAmount"] ?></td>
                         <td><?= $prod["inStock"] ?></td>
@@ -44,6 +44,3 @@
 </div>
 
 <script src="public/js/admin_products.js"></script>
-<script src="public/js/crud.js">
-    
-</script>

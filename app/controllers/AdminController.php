@@ -21,6 +21,14 @@ class AdminController {
         $total_pages = ceil($total / $this->limit);
         require __DIR__ . "/../views/admin/product/product.php";
     }
+    public function product_add() {
+        $categories = $this->product->get_categories();
+        require __DIR__ . "/../views/admin/product/add.php";
+    }
+    public function product_edit() {
+        $categories = $this->product->get_categories();
+        require __DIR__ . "/../views/admin/product/edit.php";
+    }
     public function customer_index() {
         require __DIR__ . "/../views/admin/user/customer.php";
     }

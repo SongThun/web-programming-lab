@@ -1,3 +1,3 @@
 <footer>
-    CopyRight Lorem Ipsum 2025.
+    <p>&copy; 2025 Lorem ipsum. All Rights Reserved.</p>
 </footer>

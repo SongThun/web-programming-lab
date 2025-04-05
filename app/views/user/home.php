@@ -4,10 +4,13 @@ if (isset($_SESSION['role']) and $_SESSION['role'] == 'user') {
 }
 ?>
 
-<div>
+<div class="home-categories">
     <?php foreach ($categories as $cat): ?>
-        <div>
-            <?= $cat['catName']?>
+        <div class="card-image" style="background-image: url('public/images/<?= $cat['imageLink'] ?>')">
+            <div>
+                <h1><?= $cat['catName']?></h1>
+                <button>See more</button>
+            </div>
         </div>
     <?php endforeach; ?> 
 </div>

@@ -11,7 +11,7 @@
         <h2>Categories</h2>
         <div>
             <?php foreach ($categories as $cat):?>
-                <button class="btn-active" value=<?= $cat['catName'] ?>><?= $cat['catName'] ?></button>
+                <button class="btn-active" value=<?= $cat['catID'] ?>><?= $cat['catName'] ?></button>
             <?php endforeach; ?>
         </div>
     </div>

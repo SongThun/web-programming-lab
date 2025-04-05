@@ -118,13 +118,13 @@ function load_products(page_num, sort, filter) {
 
 function update_pagination(current, total) {
   html = "";
-  if (total > 1) {
+  if (total > 1 && current > 1) {
     html += '<button id="prev">&lt;</button>';
   }
-  if (total > 0) {
+  if (total > 0 && current <= total) {
     html += current + "/" + total;
   }
-  if (total > 1) {
+  if (total > 1 && current < total) {
     html += '<button id="next">&gt;</button>';
   }
   pagination.innerHTML = html;

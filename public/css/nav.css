@@ -1,0 +1,55 @@
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    display: inline;
+}
+
+
+.info {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.hnav {
+    display: flex;
+    align-items: center;
+}
+.hnav li {
+    margin-right: 2vw;
+}
+.hnav li a:hover, .info a:hover{
+    color: var(--tiffany-blue);
+    font-weight: bolder;
+}
+
+.hnav .selected {
+    color: var(--iris);
+    font-weight: bold;
+}
+
+.container {
+    display: flex;
+}
+
+.sidebar {
+    position: sticky;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.vnav {
+    display: flex;
+    flex-direction: column;
+}
+
+.main {
+    width: 100%;
+    min-height: 100vh;
+}
+

@@ -10,7 +10,7 @@ class HomeController {
             require __DIR__ . "/../views/admin/home.php";
         }
         else {
-            $categories = $this->model->get_categories();
+            $categories = $this->model->get_categories_with_images();
             require __DIR__ . "/../views/user/home.php";
         }
     }

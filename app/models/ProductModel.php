@@ -16,6 +16,13 @@ class ProductModel
         $categories = $result->fetch_all(MYSQLI_ASSOC);
         return $categories;
     }
+    public function get_categories_with_images() {
+        $stmt = $this->db->prepare("CALL GetFirstImagePerCategory()");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $categories = $result->fetch_all(MYSQLI_ASSOC);
+        return $categories;
+    }
     public function get_products_by_date($limit)
     {
         $sql = "SELECT p.*, c.catName 
@@ -49,14 +56,14 @@ class ProductModel
         // Handle categories
         if (!empty($categories)) {
             $placeholders = implode(',', array_fill(0, count($categories), '?'));
-            $sql .= " AND c.catName IN ($placeholders)";
+            $sql .= " AND c.catID IN ($placeholders)";
             $params = array_merge($params, $categories);
             $types .= str_repeat("s", count($categories)); // "s" because catName is a string
         }
         else {
             return [];
         }
-
+        
         // Handle price range
         if (!empty($price_range)) {
             $sql .= " AND p.price BETWEEN ? AND ?";
@@ -77,7 +84,7 @@ class ProductModel
         $params[] = $limit;
         $params[] = $offset;
         $types .= "ii";
-
+        
         // Prepare and execute
         $stmt = $this->db->prepare($sql);
         if (!$stmt) {
@@ -87,7 +94,6 @@ class ProductModel
         $stmt->execute();
         $result = $stmt->get_result();
         $products = $result->fetch_all(MYSQLI_ASSOC);
-
         return $products;
     }
     public function get_total_count($filter)
@@ -102,7 +108,7 @@ class ProductModel
 
         if (!empty($filter['categories'])) {
             $placeholders = implode(',', array_fill(0, count($filter['categories']), '?'));
-            $sql .= " AND c.catName IN ($placeholders)";
+            $sql .= " AND c.catID IN ($placeholders)";
             $params = array_merge($params, $filter['categories']);
             $types .= str_repeat("s", count($filter['categories']));
         }
@@ -154,5 +160,71 @@ class ProductModel
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_assoc();
+    }
+    public function insert($data) {
+        $sql = "INSERT INTO products(title, catID, productDesc, price, inStock, discount, imageLink) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        
+        $this->db->begin_transaction();
+        try {
+            // Prepare the statement
+            $stmt = $this->db->prepare($sql);
+            $stmt->bind_param("sisdids", 
+                $data['title'], 
+                $data['catID'], 
+                $data['productDesc'],
+                $data['price'], 
+                $data['inStock'], 
+                $data['discount'], 
+                $data['imageLink']
+            );
+            $stmt->execute();
+            $last_id = $this->db->insert_id;
+            
+            $this->db->commit();
+
+            $stmt = $this->db->prepare(
+                "SELECT *
+                FROM products p
+                JOIN categories c ON p.catID = c.catID
+                WHERE p.id = ?"
+            );
+            $stmt->bind_param("i", $last_id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            return ["status" => "success", "data" => $result->fetch_assoc()];
+        }
+        catch (Exception $e) {
+            $this->db->rollback();
+            return ["status" => "fail", "msg" => $e->getMessage()];
+        }
+    }
+    public function update($id, $data) {
+        $sql = "UPDATE products 
+                SET title = ?, catID = ?, productDesc = ?, price = ?, inStock = ?, discount = ?, imageLink = ?
+                WHERE id = ?";
+        try {
+            $stmt = $this->db->prepare($sql);
+            $stmt->bind_param('sisdidsi', 
+                $data['title'], 
+                $data['catID'], 
+                $data['productDesc'],
+                $data['price'], 
+                $data['inStock'], 
+                $data['discount'], 
+                $data['imageLink'],
+                $id
+            );
+            
+            $stmt->execute();
+            $this->db->commit();
+
+            if ($stmt->affected_rows > 0) {
+                return ["status" => "success"];
+            } else {
+                return ["status" => "fail", "msg" => "No rows affected"];
+            }
+        } catch (Exception $e) {
+            return ["status" => "fail", "msg" => $e->getMessage()];
+        }
     }
 }

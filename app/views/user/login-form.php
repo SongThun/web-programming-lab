@@ -2,10 +2,10 @@
     <section>
         <form novalidate id="login-form" action="?page=login" method="POST">
             <div id="username-input">
-                Username: <input type="text" name="username" required>
+                Username: <input type="text" name="username" required autocomplete="current-password">
             </div>
             <div id="password-input">
-                Password: <input type="password" name="password" required>
+                Password: <input type="password" name="password" required autocomplete="current-password">
             </div>
             <span class="err"></span>
             <button type="submit">Login</button>
@@ -47,9 +47,10 @@
                 })
                 .then(res => {
                     if (res.status === 'success') {
-                        window.location.href = "index.php"; // Redirect after successful login
+                        window.location.href = "index.php"; 
                     } else {
-                        err.innerText = "Incorrect username or password"; // Display error message
+                        err.innerText = "Incorrect username or password"; 
+                        document.querySelector("#password-input input").value = "";
                     }
                 })
                 .catch(error => {

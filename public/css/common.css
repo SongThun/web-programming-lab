@@ -1,4 +1,16 @@
+button {
+    font-family: "Lexend", sans-serif;
+    padding: 4px;
+    border-radius: 5px;
+    background-color: var(--snow);
+    border: 1px solid black;
+}
 .btn-active {
     background-color: blue;
     color: white;
+}
+
+img {
+    width: 50px;
+    aspect-ratio: 1/1;
 }

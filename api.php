@@ -42,9 +42,16 @@ if (in_array($page, $valid_pages)) {
             }
             break;
         case 'product':
+            $action = isset($_GET['action']) ? $_GET['action'] : 'none';
             $controller = new ProductController();
-            if ($method === 'POST') {
+            if ($method === 'POST' && $action === 'none') {
                 $controller->load_products();
+            }
+            else if ($method === 'POST' && $action === 'add') {
+                $controller->add();
+            }
+            else if ($method === 'PUT' && $action == 'edit') {
+                $controller->edit();
             }
             break;
         default:

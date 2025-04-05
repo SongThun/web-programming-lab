@@ -47,7 +47,7 @@ class AuthController
             $password = trim($data["password"]);
             $user = $this->model->get_user($username);
             $res = [];
-            if (count($user) > 0 && password_verify($password, $user['password'])) {
+            if ($user != null && password_verify($password, $user['password'])) {
                 $_SESSION['user_id'] = $user["userID"];
                 $_SESSION['username'] = $user["username"];
                 $_SESSION['role'] = $user["urole"];

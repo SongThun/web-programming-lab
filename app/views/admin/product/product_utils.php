@@ -8,9 +8,9 @@
         <option value="salesAmount-DESC">Best selling</option>
     </select>
     <div id="pagination">
-        <?php if ($total_pages > 1):?>
+        <!-- <?php if ($total_pages > 1):?>
             <button id="prev">&lt;</button>
-        <?php endif; ?>
+        <?php endif; ?> -->
         1/<?= $total_pages ?>
         <?php if ($total_pages > 1):?>
             <button id="next">&gt;</button>
