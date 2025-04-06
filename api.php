@@ -22,7 +22,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 // }
 
 // Check if the page is a valid API endpoint
-$valid_pages = ['home', 'product', 'about', 'login', 'register']; // Add all API endpoints here
+$valid_pages = ['home', 'product', 'about', 'login', 'register', 'cart']; // Add all API endpoints here
 
 if (in_array($page, $valid_pages)) {
     switch ($page) {
@@ -52,6 +52,15 @@ if (in_array($page, $valid_pages)) {
             }
             else if ($method === 'PUT' && $action == 'edit') {
                 $controller->edit();
+            }
+            else if ($method == "DELETE" && $action == 'delete') {
+                $controller->delete();
+            }
+            break;
+        case 'cart': 
+            $controller = new UserController();
+            if (isset($_GET['action']) && $_GET['action'] == 'checkout') {
+                $controller->checkout();
             }
             break;
         default:

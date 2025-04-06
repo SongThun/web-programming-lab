@@ -42,8 +42,9 @@
                                 case 'add':
                                     $controller->product_add();
                                     break;
-                                case 'edit':
-                                    $controller->product_edit();
+                                case 'view':
+                                    $controller->product_view();
+                                    break;
                                 default: 
                                     $controller->product_index();
                                     break;

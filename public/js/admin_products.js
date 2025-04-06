@@ -99,10 +99,10 @@ function load_products(page_num, sort, filter) {
         res["data"].forEach((prod) => {
           html += `<tr>
                         <td>${prod["id"]}</td>
-                        <td><div>
+                        <td><a href="admin.php?page=product&action=edit&item=${prod["id"]}">
                             <span>${prod["catName"]}</span>
                             <span>${prod["title"]}</span>
-                        </div></td>
+                        </a></td>
                         <td>${prod["price"]}</td>
                         <td>${prod["salesAmount"]}</td>
                         <td>${prod["inStock"]}</td>

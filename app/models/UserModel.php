@@ -24,10 +24,41 @@ class UserModel {
                 $stmt2->bind_param("iii",$amount, $user_id, $item_id);
                 $stmt2->execute();
             }
+            $this->db->commit();
+            return ["status" => "success"];
         }
         catch (Exception $e) {
             $this->db->rollback();
+            return ["status" => "fail", "msg" => $e->getMessage()];
         }
     }
+    public function get_cart($userid) {
+        $sql = "SELECT c.amount, p.title, p.price, (p.price * c.amount) AS total, p.imageLink
+                FROM cart c 
+                JOIN products p ON c.productID = p.id 
+                WHERE c.userID = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("i", $userid);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+    public function delete_cart($userid) {
+        try {
+            $stmt = $this->db->prepare("DELETE FROM cart WHERE userID = ?");
+            $stmt->bind_param("i", $userid);
+            $stmt->execute();
+            return ["status" => "success"];
+        } catch (Exception $e) {
+            return ["status" => "fail", "msg" => $e->getMessage()];
+        }
+    }
+    public function get_sales() {
+        $stmt = $this->db->prepare("SELECT * FROM sales;");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result;
+    }
+    
 }
 ?>

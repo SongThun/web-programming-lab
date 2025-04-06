@@ -27,7 +27,7 @@
                 <?php foreach ($products as $prod): ?>
                     <tr>
                         <td><?= $prod["id"] ?></td>
-                        <td><a href=<?= "admin.php?page=product&action=edit&item=" . $prod['id'] ?>>
+                        <td><a href=<?= "admin.php?page=product&action=view&item=" . $prod['id'] ?>>
                                 <span><?= $prod["catName"] ?></span>
                                 <span><?= $prod["title"] ?></span>
                             </a></td>

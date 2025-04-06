@@ -2,7 +2,7 @@
 require_once __DIR__ . '/app/controllers/HomeController.php';
 require_once __DIR__ . '/app/controllers/ProductController.php';
 require_once __DIR__ . '/app/controllers/AuthController.php';
-
+require_once __DIR__ . '/app/controllers/UserController.php';
 
 session_start();
 
@@ -15,12 +15,12 @@ if ($role === 'admin' && !in_array($page, ['logout','login','register'])) {
 }
 
 
-$valid_pages = ['home', 'product', 'about', 'login', 'register', 'logout', 'admin'];
+$valid_pages = ['home', 'product', 'about', 'login', 'register', 'logout', 'admin', 'cart'];
 
 $home_controller = new HomeController();
 $product_controller = new ProductController();
 $auth_controller = new AuthController();
-
+$user_controller = new UserController();
 ?>
 
 
@@ -51,6 +51,9 @@ $auth_controller = new AuthController();
                     $product_controller->index();
                 }
                 break;
+            case 'cart':
+                $user_controller->cart_index();
+                break;
             case 'login':
                 $auth_controller->index('login');
                 break;
@@ -59,6 +62,9 @@ $auth_controller = new AuthController();
                 break;
             case 'logout':
                 $auth_controller->logout();
+                break;
+            case 'about':
+                $home_controller->about();
                 break;
             default:
                 $home_controller->index();

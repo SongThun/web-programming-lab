@@ -28,6 +28,7 @@ class ProductModel
         $sql = "SELECT p.*, c.catName 
             FROM products p
             JOIN categories c ON p.catID = c.catID
+            ORDER BY createdDate DESC
             LIMIT ? ";
         $stmt = $this->db->prepare($sql);
         $stmt->bind_param("i", $limit);
@@ -223,6 +224,16 @@ class ProductModel
             } else {
                 return ["status" => "fail", "msg" => "No rows affected"];
             }
+        } catch (Exception $e) {
+            return ["status" => "fail", "msg" => $e->getMessage()];
+        }
+    }
+    public function delete($id) {
+        try {
+            $stmt = $this->db->prepare("DELETE FROM products WHERE id = ?");
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            return ["status" => "success"];
         } catch (Exception $e) {
             return ["status" => "fail", "msg" => $e->getMessage()];
         }

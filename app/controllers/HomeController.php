@@ -14,5 +14,8 @@ class HomeController {
             require __DIR__ . "/../views/user/home.php";
         }
     }
+    public function about() {
+        require __DIR__ . "/../views/user/about.php";
+    }
 }
 ?>

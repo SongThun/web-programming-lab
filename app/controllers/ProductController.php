@@ -53,7 +53,7 @@ class ProductController {
             $imageData = $data["imageLink"];
             $imageData = preg_replace('/^data:image\/\w+;base64,/', '', $imageData);
             $decodedData = base64_decode($imageData);
-            $imageName = 'product_' . time() . '.png';
+            $imageName = strtolower($data['title']);
             $imagePath = 'public/images/' . str_replace(' ', '-', $imageName);
             if (!file_exists($imagePath)) {
                 file_put_contents($imagePath, $decodedData);
@@ -73,13 +73,22 @@ class ProductController {
             $imageData = $data["imageLink"];
             $imageData = preg_replace('/^data:image\/\w+;base64,/', '', $imageData);
             $decodedData = base64_decode($imageData);
-            $imageName = 'product_' . time() . '.png';
+            $imageName = strtolower($data['title']);
             $imagePath = 'public/images/' . str_replace(' ', '-', $imageName);
             if (!file_exists($imagePath)) {
                 file_put_contents($imagePath, $decodedData);
             }
             $data['imageLink'] = $imageName;
             $res = $this->model->update($_GET['item'], $data);
+            
+            header("Content-Type: application/json");
+            echo json_encode($res);
+            exit();
+        }
+    }
+    public function delete() {
+        if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
+            $res = $this->model->delete($_GET['item']);
             
             header("Content-Type: application/json");
             echo json_encode($res);

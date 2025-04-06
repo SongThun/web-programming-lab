@@ -71,3 +71,29 @@ async function edit_record(page, id, body) {
 
     return result;
 }
+
+async function delete_record(page, id) {
+    const url = `api.php?page=${page}&action=delete&item=${id}`;
+    try {
+        const response = await fetch(url, {
+            method: 'DELETE',
+        });
+        const res = await response.json();
+        return res;
+    } catch (err) {
+        console.error('Delete failed:', err);
+        return { status: 'fail', msg: err.message };
+    }
+}
+
+function handle_image() {
+    const file_input = document.getElementById('image_upload');
+    const image_preview = document.getElementById('image_preview');
+
+    file_input.addEventListener('change', function() {
+        const file = this.files[0];
+        if (file) {
+            image_preview.src = URL.createObjectURL(file);
+        }
+    });
+}

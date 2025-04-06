@@ -1,6 +1,6 @@
 <div class="info">
     <?php if (isset($_SESSION['user_id'])): ?>
-        <button>favorite</button>;
+        <a href="?page=cart">cart</a>
         <span><?= $_SESSION["username"] ?></span>
         <a href="?page=logout">Log out</a>
     <?php else: ?>

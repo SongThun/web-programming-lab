@@ -25,4 +25,17 @@ class UserController
             }
         }
     }
+    public function cart_index() {
+        $userid = $_SESSION['user_id'];
+        $items = $this->model->get_cart($userid);
+        require __DIR__ . "/../views/user/cart.php";
+    }
+
+    public function checkout() {
+        $userid = $_SESSION['user_id'];
+        $res = $this->model->delete_cart($userid);
+        header("Content-Type: application/json");
+        echo json_encode($res);
+        exit();
+    }
 }

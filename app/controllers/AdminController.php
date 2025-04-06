@@ -25,8 +25,10 @@ class AdminController {
         $categories = $this->product->get_categories();
         require __DIR__ . "/../views/admin/product/add.php";
     }
-    public function product_edit() {
+    public function product_view() {
         $categories = $this->product->get_categories();
+        $id = $_GET['item'];
+        $prod = $this->product->get_item($id);
         require __DIR__ . "/../views/admin/product/edit.php";
     }
     public function customer_index() {
@@ -36,6 +38,7 @@ class AdminController {
         require __DIR__ . "/../views/admin/user/admin.php";
     }
     public function sales_index() {
+        $sales = $this->users->get_sales();
         require __DIR__ . "/../views/admin/sales.php";
     }
 }
