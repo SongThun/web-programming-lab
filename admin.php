@@ -31,7 +31,7 @@
     <title>Lorem ipsum Admin</title>
 </head>
 <body>
-    <div class="container">
+    <div class="admin-page">
         <?php require "app/views/include/sidebar.php" ?>
         <div class="main">
             <?php 

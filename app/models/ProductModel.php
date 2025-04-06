@@ -204,6 +204,19 @@ class ProductModel
         $result = $stmt->get_result();
         return $result->fetch_assoc();
     }
+    public function get_similar($id, $limit) {
+        $sql = "SELECT p.*, c.catName 
+                FROM products p 
+                JOIN categories c ON p.catID = c.catID
+                WHERE p.catID = (SELECT catID FROM products WHERE id=?) 
+                AND p.id != ?
+                LIMIT ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("iii", $id, $id, $limit);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
     public function insert($data) {
         $sql = "INSERT INTO products(title, catID, productDesc, price, inStock, discount, imageLink) VALUES (?, ?, ?, ?, ?, ?, ?)";
         

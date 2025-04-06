@@ -18,7 +18,7 @@ $total_pages = ceil($total / $limit);
         echo "<button data-page=" . $total_pages - 2 .">" . $total_pages - 2 . "</button>";
         echo "<button data-page=" . $total_pages - 1 .">" . $total_pages - 1 . "</button>";
         echo "<button data-page=$total_pages>$total_pages</button>";
-        echo '<button id="next">&gt;</button>';
+        echo '<button id="next"><i class="bx bx-chevron-right"></i></button>';
     }
     ?>
 </div>

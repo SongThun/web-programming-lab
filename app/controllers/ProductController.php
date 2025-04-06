@@ -24,10 +24,12 @@ class ProductController {
     public function index() {
         $categories = $this->model->get_categories();
         $prices = $this->model->get_prices();
+        
+        $filter_cat = isset($_GET['category']) ? [end(explode('-',$_GET['category']))] : array_column($categories,"catID");
         $title = isset($_POST['title']) ? $_POST['title'] : "";
         $sort = ["by"=> "createdDate", "order"=>"DESC"];
         $filter = [
-            "categories"=>array_column($categories, "catID"), 
+            "categories"=>$filter_cat,
             "price_range"=>[], 
             "title" => $title
         ];
@@ -62,6 +64,7 @@ class ProductController {
             $item_id = end($item_split);
             
             $item = $this->model->get_item($item_id);
+            $similar_items = $this->model->get_similar($item_id, 5);
             require __DIR__ . "/../views/user/product/item.php";
         }
     }

@@ -1,20 +1,22 @@
-.grid-1-3 {
+.grid-1-4 {
     display: grid;
-    grid-template-columns: 1fr 3fr;
+    grid-template-columns: 1fr 4fr;
 }
 
 #product-display {
-    padding: 0 5%;
-    display: grid;
-    grid-template-columns: auto auto auto;
+    /* display: grid;
+    grid-template-columns: auto auto auto auto; */
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 7vw;
 }
 
 #product-display .card {
-    width: calc((100vw * 3/5) / 3);
+    width: calc((100vw * 4/7) / 4);
     border-radius: var(--r);
-    box-shadow: 0 0 10px 1px rgba(202, 201, 201, 0.619);
+    box-shadow: 0 0 10px 0.5px rgba(202, 201, 201, 0.619);
     /* border: 1.5px solid rgb(181, 181, 181); */
-    margin: 1vw;
+    margin: 1.5vw;
 }
 
 #product-display img {
@@ -23,7 +25,8 @@
 }
 
 #product-display h1 {
-    font-size: 2.6ex;
+    font-size: 2.2ex;
+    font-weight: bolder;
 }
 #product-display h2 {
     font-size: 3ex;
@@ -36,6 +39,23 @@
 #product-display .img-div {
     border-radius: var(--r) var(--r) 0 0;
 }
+#product-display .img-info {
+    padding: 2ex;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    align-items: last baseline;
+}
+#product-display .add-cart-btn {
+    border: none;
+    background-color: var(--earth-yellow);
+    width: 5ex;
+    padding: 0;
+    aspect-ratio: 1/1;
+    align-content: center;
+    font-weight: bold;
+    border-radius: var(--c);
+}
 .tag {
     background-color: rgba(255, 255, 255, 0.7);
     border: none;
@@ -46,4 +66,49 @@
 }
 .tag-right {
     border-radius: 0 var(--r) 0 var(--r) ;
+}
+#filter-search {
+    border-bottom: 2px solid var(--iris);
+    /* border-radius: var(--c); */
+    padding: 1ex;
+    display: flex;
+    align-items: center;
+}
+#filter-search input {
+    padding: 2px;
+    border: none;
+    width: 90%;
+}
+#filter-search input:focus {
+    outline: none;
+}
+
+#categories-list button {
+    color: black;
+    background-color: var(--earth-yellow);
+    border: none;
+    border-radius: var(--c);
+    opacity: 0.3;
+    padding: 1.2ex;
+    margin: 0 2px 4px 0;
+}
+#categories-list .btn-active {
+    opacity: 1;
+}
+
+#pagination-bar button {
+    border: none;
+}
+#pagination-bar .btn-active {
+    background-color: var(--tiffany-blue);
+}
+
+#price-display div {
+    align-items: center;
+    justify-content: flex;
+    width: fit-content;
+}
+
+#filter-categories h2, #filter-price-range h2 {
+    font-weight: bold;
 }

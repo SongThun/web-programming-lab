@@ -1,0 +1,27 @@
+.cart-item {
+    display: flex;
+    background-color: rgba(248, 248, 248, 0.948);;
+    padding: 3ex;
+    border-radius: var(--r);
+}
+
+.cart-item img {
+    border-radius: var(--r);
+    margin-right: 2ex;
+}
+.grid-2 {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 2em;
+}
+.div-sm {
+    width: 50%;
+}
+
+#checkout-btn {
+    background-color: var(--earth-yellow);
+    width: 30vw;
+    border: none;
+    font-weight: bold;
+    font-size: 2ex;
+}

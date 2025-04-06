@@ -1,0 +1,29 @@
+.big-img {
+    width: 100%;
+    aspect-ratio: 1/1;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.auth-display h1{
+    font-size: 6ex;
+    font-weight: bold;
+}
+
+.auth-display .input-field{
+    display: flex;
+    flex-direction: column;
+    width: 28vw;
+    margin-top: 2ex;
+}
+.auth-display button {
+    margin-top: 2ex;
+    background-color: var(--iris);
+    border: none;
+    color: white;
+    width: 28vw;
+    font-size: 2ex;
+}
+
+#login-form, #register-form{
+    margin-bottom: 4em;
+}

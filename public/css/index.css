@@ -2,6 +2,9 @@
 @import url("nav.css");
 @import url("home.css");
 @import url("product.css");
+@import url("item.css");
+@import url('authorize.css');
+@import url('cart.css');
 
 :root {
   --tiffany-blue: hsl(172, 45%, 74%);
@@ -17,7 +20,7 @@
 
 body {
   font-family: "Lexend", sans-serif;
-  font-size: 2ex;
+  font-size: 2.2ex;
   background: var(--snow);
   margin: 0;
   padding: 0;
@@ -33,7 +36,6 @@ footer {
   padding: 10px;
   width: auto;
   bottom: 0;
-  margin-top: 3vw;
 }
 
 header {
@@ -45,6 +47,7 @@ header {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     box-sizing: border-box;
+    z-index: 10;
 }
 
 a {

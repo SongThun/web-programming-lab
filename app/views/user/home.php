@@ -26,7 +26,6 @@
                             <h2>$<?= $pop['price'] ?></h2>
                             <span class="flex c-yellow"><?= $pop['salesAmount'] ?><i class='bx bxs-heart'></i></span>
                         </div>
-
                     </div>
                 <?php endforeach; ?>
             </div>

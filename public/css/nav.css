@@ -48,4 +48,19 @@ ul li {
     width: 100%;
     min-height: 100vh;
 }
+.info a, .info span {
+    margin-right: 2vw;
+    display: flex;
+    align-items: center;
+}
 
+.sidebar {
+    margin: 2ex;
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-page{
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+}

@@ -1,21 +1,22 @@
-<div>
-    <section>
-        <form novalidate id="register-form" action="?page=login" method="POST">
-            <div id="username-input">
+<div class="flex">
+    <div class="container auth-display">
+        <h1>Create an account</h1>
+        <form novalidate class="container" id="register-form" action="?page=login" method="POST">
+            <div class="input-field" id="username-input">
                 Username: <input type="text" required minlength="8">
             </div>
-            <div id="password-input">
+            <div class="input-field" id="password-input">
                 Password: <input type="password" required minlength="8">
             </div>
-            <div id="confirm-password-input">
+            <div class="input-field" id="confirm-password-input">
                 Confirm password: <input type="confirm-password" required>
             </div>
-            <span class="err"></span>
+            <span class="err flex mt-1 c-red"></span>
             <button type="submit">Register</button>
         </form>
-        <span>Have an account? <a href="?page=login">Login</a></span>
-    </section>
-    <section>Some image here</section>
+        <span>Have an account? <a href="?page=login" class="c-iris">Login</a></span>
+    </div>
+    <div class="big-img" style="background-image: url('public/images/register-illustration.jpg')"></div>
 </div>
 
 <script>
@@ -29,8 +30,9 @@
 
         const err = register_form.querySelector("span.err");
 
+        err.innerHTML = "";
         if (username == "" || password == "" || confirm_pw == "") {
-            err.innerText = "All fields are required";
+            err.innerHTML = "<i class='bx bx-error-circle me-1'></i> All fields are required";
         } else {
             fetch("api.php?page=register", {
                     method: 'POST',
@@ -53,7 +55,7 @@
                     if (res.status === 'success') {
                         window.location.href = "index.php"; 
                     } else {
-                        err.innerText = `${username} is already taken.`; 
+                        err.innerHTML = `<i class='bx bx-error-circle me-1'></i> ${username} is already taken.`; 
                     }
                 })
                 .catch(error => {

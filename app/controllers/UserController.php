@@ -10,7 +10,7 @@ class UserController
     public function add_to_cart()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-            if ($_GET['role'] === 'user' and isset($_SESSION['user_id'])) {
+            if (isset($_SESSION['role']) && $_SESSION['role'] === 'user' and isset($_SESSION['user_id'])) {
                 $item_id = $_GET['item'];
                 $amount = $_GET['amount'];
                 $user_id = $_SESSION['user_id'];

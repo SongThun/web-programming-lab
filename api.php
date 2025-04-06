@@ -68,11 +68,15 @@ if (in_array($page, $valid_pages)) {
     }
 } 
 
-$role = isset($_GET['role']) ? $_GET['role'] : 'guest';
+$role = isset($_SESSION['role']) ? $_SESSION['role'] : 'guest';
 
 if ($role === 'user') {
     if (isset($_GET['item'])) {
         $controller = new UserController();
         $controller->add_to_cart();
     }
+}
+else {
+    echo json_encode(["status"=>"fail", "msg" => "Please login to add to cart."]);
+    exit();
 }
