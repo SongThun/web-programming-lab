@@ -114,22 +114,24 @@ function load_products(page_num, sort, filter) {
     .then((res) => {
       if (res["status"] === "success") {
         let total_pages = res["total_pages"];
-        console.log(total_pages);
         current = update_pagination(page_num, total_pages);
         let products_html = "";
 
         res["data"].forEach((prod) => {
           products_html += `
-                    <a href="/product/${prod["title"]})-${prod["id"]}">
-                        <img src="public/images/${prod["imageLink"]}" alt="${prod["title"]}">
-                        <span>${prod["catName"]}</span>
-                        <h1>${prod["title"]}</h1>
-                        <div>
-                            <span>${prod["price"]}</span>
-                            <span>${prod["salesAmount"]}</span>
-                        </div>
-                    </a>`;
-        });
+              <a class="card container space-between" href="?page=product&item=${encodeURIComponent(prod.title.toLowerCase() + '-' + prod.id)}">
+                  <div>
+                      <div class="img-div" style="background-image: url('public/images/${prod.imageLink}')">
+                          <div class="flex space-between">
+                              <button class="tag tag-left">${prod.catName}</button>
+                              <button class="tag tag-right flex">${prod.salesAmount}<i class='bx bxs-heart'></i></button>
+                          </div>
+                      </div>
+                      <h1 class="center p-1 mt-2">${prod.title}</h1>
+                  </div>
+                  <h2 class="mb-2">$${prod.price}</h2>
+              </a>`;
+      });
 
         display.innerHTML = products_html;
         attachPaginationEvents(); // re-attach listeners after pagination redraw
@@ -144,7 +146,7 @@ function update_pagination(current, total) {
     pagination.innerHTML = "";
     return 0;
   }
-  const delta = 2;
+  const delta = 1;
   const range = [];
 
   if (current >= 1) range.push(1);

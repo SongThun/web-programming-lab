@@ -1,9 +1,10 @@
 @import url("common.css");
 @import url("nav.css");
 @import url("home.css");
+@import url("product.css");
 
 :root {
-  --tiffany-blue: #9ddad2;
+  --tiffany-blue: hsl(172, 45%, 74%);
   --snow: #fefcfe;
   --isabelline: #f3f3f3;
   --earth-yellow: #f3c378;
@@ -49,6 +50,13 @@ header {
 a {
     text-decoration: none;
     color: black;
+}
+h1,h2,h3 {
+  margin: 0.5ex 0;
+  padding: 0;
+}
+h1, h2,h3 {
+  font-weight: normal;
 }
 /* 
 section {

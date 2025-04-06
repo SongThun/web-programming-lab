@@ -1,11 +1,10 @@
 <?php
-    $prices = array_column($products, "price");
-    $min_price = min($prices);
-    $max_price = max($prices);
+    $min_price = $prices['min_price'];
+    $max_price = $prices['max_price'];
 ?>
 <div>
     <div id="filter-search">
-        <input type="text" placeholder="search an item...">
+        <input type="text" placeholder="search an item..." value=<?= $title?>>
     </div>
     <div id="filter-categories">
         <h2>Categories</h2>

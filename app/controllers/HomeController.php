@@ -11,6 +11,7 @@ class HomeController {
         }
         else {
             $categories = $this->model->get_categories_with_images();
+            $popular = $this->model->get_most_popular(5);
             require __DIR__ . "/../views/user/home.php";
         }
     }

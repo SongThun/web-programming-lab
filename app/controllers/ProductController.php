@@ -7,10 +7,32 @@ class ProductController {
         $this->model = new ProductModel();
         $this->limit = 12;
     }
+    // public function index() {
+    //     // $title = isset($_POST['title']) ? $_POST['title'] : "";
+    //     $products = $this->model->get_products_by_date("", $this->limit);
+    //     $total = $this->model->get_total("");
+    //     $prices = array_column($products, "price");
+    //     $min_price = min($prices);
+    //     $max_price = max($prices);
+    //     if (isset($_POST['title']) and !empty($_POST['title'])) {
+    //         $products = $this->model->get_products_by_date($_POST['title'], $this->limit);
+    //     }
+    //     $categories = $this->model->get_categories();
+    //     $limit = $this->limit;
+    //     require __DIR__ . "/../views/user/product/product.php";
+    // }
     public function index() {
-        $products = $this->model->get_products_by_date($this->limit);
-        $total = $this->model->get_total();
         $categories = $this->model->get_categories();
+        $prices = $this->model->get_prices();
+        $title = isset($_POST['title']) ? $_POST['title'] : "";
+        $sort = ["by"=> "createdDate", "order"=>"DESC"];
+        $filter = [
+            "categories"=>array_column($categories, "catID"), 
+            "price_range"=>[], 
+            "title" => $title
+        ];
+        $products = $this->model->get_products($sort, $filter, $this->limit, 0);
+        $total = $this->model->get_total_count($filter);
         $limit = $this->limit;
         require __DIR__ . "/../views/user/product/product.php";
     }

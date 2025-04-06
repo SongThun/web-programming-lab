@@ -14,11 +14,22 @@ class AdminController {
     public function index() {
         require __DIR__ . "/../views/admin/home.php";
     }
+    // public function product_index() {
+    //     $title = "";
+    //     $products = $this->product->get_products_by_date($title, $this->limit);
+    //     $categories = $this->product->get_categories();
+    //     $total = $this->product->get_total($title);
+    //     $total_pages = ceil($total / $this->limit);
+    //     require __DIR__ . "/../views/admin/product/product.php";
+    // }
     public function product_index() {
-        $products = $this->product->get_products_by_date($this->limit);
         $categories = $this->product->get_categories();
-        $total = $this->product->get_total();
-        $total_pages = ceil($total / $this->limit);
+        $title = isset($_POST['title']) ? $_POST['title'] : "";
+        $sort = ["by"=> "createdDate", "order"=>"DESC"];
+        $filter = ["categories"=>[], "price_range"=>[], "title"=>$title];
+        $products = $this->product->get_products($sort, $filter, $this->limit, 0);
+        $total = $this->product->get_total_count($filter);
+        $limit = $this->limit;
         require __DIR__ . "/../views/admin/product/product.php";
     }
     public function product_add() {

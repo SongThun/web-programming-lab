@@ -1,7 +1,7 @@
 <?php
 $total_pages = ceil($total / $limit);
 ?>
-<div id="pagination-bar">
+<div id="pagination-bar" class="flex center">
     <button class="btn-active">1</button>
     <?php
     if ($total_pages <= 6) {

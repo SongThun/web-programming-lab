@@ -16,6 +16,20 @@ class ProductModel
         $categories = $result->fetch_all(MYSQLI_ASSOC);
         return $categories;
     }
+    public function get_most_popular($limit) {
+        $sql = "SELECT * FROM products ORDER BY salesAmount DESC LIMIT ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("i", $limit);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+    public function get_prices() {
+        $stmt = $this->db->prepare("SELECT MIN(price) as min_price, MAX(price) as max_price FROM products;");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc();
+    }
     public function get_categories_with_images() {
         $stmt = $this->db->prepare("CALL GetFirstImagePerCategory()");
         $stmt->execute();
@@ -23,19 +37,41 @@ class ProductModel
         $categories = $result->fetch_all(MYSQLI_ASSOC);
         return $categories;
     }
-    public function get_products_by_date($limit)
-    {
-        $sql = "SELECT p.*, c.catName 
-            FROM products p
-            JOIN categories c ON p.catID = c.catID
-            ORDER BY createdDate DESC
-            LIMIT ? ";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bind_param("i", $limit);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        return $result->fetch_all(MYSQLI_ASSOC);
-    }
+    // public function get_products_by_name($title, $limit) {
+    //     $sql = "SELECT p.*, c.catName 
+    //         FROM products p
+    //         JOIN categories c ON p.catID = c.catID
+    //         WHERE p.title LIKE ?
+    //         ORDER BY createdDate DESC
+    //         LIMIT ? ";
+    //     $stmt = $this->db->prepare($sql);
+    //     $regex = "%$title%";
+    //     $stmt->bind_param("s", $regex);
+    //     $stmt->execute();
+    //     $result = $stmt->get_result();
+    //     return $result->fetch_all(MYSQLI_ASSOC);
+    // }
+    // public function get_products_by_date($title, $limit)
+    // {
+    //     $sql = "SELECT p.*, c.catName 
+    //         FROM products p
+    //         JOIN categories c ON p.catID = c.catID WHERE 1=1";
+    //     $params = [];
+    //     $type = "";
+    //     if (!empty($title)) {
+    //         $sql .= " AND p.title LIKE ?";
+    //         $params = [""]
+    //     }
+    //     $sql .= " ORDER BY createdDate DESC
+    //             LIMIT ?";
+
+    //     $regex = "%$title%";
+    //     $stmt = $this->db->prepare($sql);
+    //     $stmt->bind_param();
+    //     $stmt->execute();
+    //     $result = $stmt->get_result();
+    //     return $result->fetch_all(MYSQLI_ASSOC);
+    // }
     public function get_products($sort, $filter, $limit, $offset)
     {
         $sort_key = $sort['by'];
@@ -143,9 +179,15 @@ class ProductModel
         return $row['total'];
     }
 
-    public function get_total()
+    public function get_total($title)
     {
-        $stmt = $this->db->prepare("SELECT COUNT(*) AS total FROM products");
+        $sql = "SELECT COUNT(*) AS total FROM products WHERE 1=1";
+        if (!empty($title)) {
+            $sql .= " AND title LIKE ?";
+        }
+        $regex = "%$title%";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("s", $regex);
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_assoc()['total'];

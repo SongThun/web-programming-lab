@@ -1,16 +1,107 @@
-button {
-    font-family: "Lexend", sans-serif;
-    padding: 4px;
-    border-radius: 5px;
-    background-color: var(--snow);
-    border: 1px solid black;
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.container-inset {
+    padding: 2vw;
 }
 .btn-active {
-    background-color: blue;
-    color: white;
+  background-color: blue;
+  color: white;
 }
 
-img {
-    width: 50px;
+.btn-transparent {
+  background: none;
+  border: none;
+  border-radius: var(--c);
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+.round {
+  border-radius: var(--c);
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+.center {
+    justify-content: center;
+    text-align: center;
+}
+.overflow-x {
+  overflow: visible;
+  overflow-x: auto;
+}
+.mt-2 {
+  margin-top: 2ex;
+}
+.mb-2 {
+    margin-bottom: 2ex;
+}
+.p-1 {
+    padding: 0 2ex;
+}
+.c-yellow {
+    color: var(--earth-yellow);
+}
+.c-iris {
+    color: var(--iris);
+}
+.c-blue {
+    color: var(--tiffany-blue);
+}
+.c-white {
+    color: var(--snow);
+}
+
+.img-div {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;
+    width: 100%;
     aspect-ratio: 1/1;
+}
+span {
+  font-size: 3ex;
+}
+img {
+  width: 100px;
+  aspect-ratio: 1/1;
+}
+
+input {
+  border: 1px solid gray;
+  padding: 1.5ex;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+div {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+button {
+  font-family: "Lexend", sans-serif;
+  padding: 1.5ex;
+  border-radius: 10px;
+  background-color: var(--snow);
+  border: 1px solid black;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+select {
+  border: 1px solid gray;
+  padding: 2px;
+  border-radius: var(--c);
 }

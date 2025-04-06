@@ -27,12 +27,8 @@ ul li {
 }
 
 .hnav .selected {
-    color: var(--iris);
+    color: var(--earth-yellow);
     font-weight: bold;
-}
-
-.container {
-    display: flex;
 }
 
 .sidebar {

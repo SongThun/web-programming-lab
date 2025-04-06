@@ -1,4 +1,5 @@
-<div>
+<div class="flex center">
+    <label for="sort">Sort by</label>
     <select name="sort" id="sort-select">
         <option selected value="createdDate-DESC">Newest</option>
         <option value="createdDate-ASC">Oldest</option>
