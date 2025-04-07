@@ -1,3 +1,4 @@
+
 @import url("common.css");
 @import url("nav.css");
 @import url("home.css");
@@ -6,6 +7,7 @@
 @import url('authorize.css');
 @import url('cart.css');
 @import url('admin.css');
+@import url('about.css');
 
 :root {
   --tiffany-blue: hsl(172, 45%, 74%);
@@ -47,8 +49,11 @@ header {
     width: 100%;
     display: grid;
     grid-template-columns: 1fr auto 1fr;
+    justify-content: space-between;
     box-sizing: border-box;
     z-index: 10;
+    align-items: center;
+    font-size: 1.8ex;
 }
 
 a {
@@ -61,6 +66,12 @@ h1,h2,h3 {
 }
 h1, h2,h3 {
   font-weight: normal;
+}
+
+.logo {
+  height: 2ex;
+  width: auto;
+  aspect-ratio: auto;
 }
 /* 
 section {

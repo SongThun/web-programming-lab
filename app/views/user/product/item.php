@@ -15,22 +15,26 @@
                 <h2>$<?= $item['price'] ?></h2>
             <?php endif; ?>
             <p><?= $item["productDesc"] ?></p>
-            <label for="item-amount">Amount:</label>
-            <input name="item-amount" id="item-amount" type="number" min="1" max=<?= $item['inStock'] ?> value="1">
-            <button id="add-cart-btn" value=<?= $item['id'] ?>>Add to cart</button>
+            <div class="flex align-center">
+                <label class="me-1" for="item-amount">Amount:</label>
+                <input class="me-1" name="item-amount" id="item-amount" type="number" min="1" max=<?= $item['inStock'] ?> value="1">
+                <button id="add-cart-btn" value=<?= $item['id'] ?>>Add to cart</button>
+            </div>
         </div>
     </div>
     <div id="similar-display" class="container mt-2">
         <h2>Similar items</h2>
         <div class="flex">
             <?php foreach ($similar_items as $sim): ?>
-                <div class="card container align-flex-start space-between">
+                <a 
+                href="<?= "index.php?page=product&item=" . urlencode(strtolower($sim["title"])) . "-" . $sim["id"]; ?>" 
+                class="card container align-flex-start space-between">
                     <div class="img-card">
                         <img src=<?= "public/images/" . $sim["imageLink"] ?> alt="">
                         <h3 class="mt-2"><?= $sim['title'] ?></h3>
                     </div>
                     <span>$<?= $sim['price'] ?></span>
-                </div>
+                </a>
             <?php endforeach; ?>
         </div>
     </div>

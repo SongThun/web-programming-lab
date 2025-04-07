@@ -25,9 +25,15 @@
 
 .flex {
   display: flex;
+  align-items: stretch;
+}
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+.align-center {
   align-items: center;
 }
-
 .space-between {
   justify-content: space-between;
 }
@@ -35,9 +41,15 @@
   justify-content: center;
   text-align: center;
 }
+.end {
+  align-items: baseline;
+}
+.stretch {
+  align-items: stretch;
+}
 .overflow-x {
-  overflow: visible;
   overflow-x: auto;
+  overflow-y: hidden;
 }
 .m-2 {
   padding: 2ex;
@@ -129,7 +141,8 @@ button {
   text-align: center;
 }
 
-button:hover, .btn:hover{
+button:hover,
+.btn:hover {
   cursor: pointer;
 }
 
@@ -152,7 +165,7 @@ select {
 .icon {
   width: 15px;
 }
-.icon:hover{
+.icon:hover {
   cursor: pointer;
 }
 .slider-wrapper {
@@ -163,7 +176,11 @@ select {
 .slider-track {
   position: absolute;
   height: 5px;
-  background-color: rgb(229, 229, 229); /* Light gray background for the unused track */
+  background-color: rgb(
+    229,
+    229,
+    229
+  ); /* Light gray background for the unused track */
   top: 0;
   bottom: 0;
   margin: auto;
@@ -232,4 +249,14 @@ input[type="range"]::-moz-range-thumb {
 .right {
   align-items: end;
   justify-content: end;
+}
+
+.mobile-hidden {
+  display: block;
+}
+
+@media screen and (max-width: 768px) {
+  .mobile-hidden {
+    display: none;
+  }
 }

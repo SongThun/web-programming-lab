@@ -28,7 +28,12 @@ class ProductController
         $categories = $this->model->get_categories();
         $prices = $this->model->get_prices();
 
-        $filter_cat = isset($_GET['category']) ? [end(explode('-', $_GET['category']))] : array_column($categories, "catID");
+        $get_cat = isset($_GET['category']) ? trim($_GET['category']) : "";
+        if (!empty($get_cat)) {
+            $cat = explode('-',$get_cat);
+            $get_cat = end($cat);
+        }
+        $filter_cat = (!empty($get_cat)) ? [$get_cat] : array_column($categories, 'catID');
         $title = isset($_POST['title']) ? $_POST['title'] : "";
         $sort = ["by" => "createdDate", "order" => "DESC"];
         $filter = [
@@ -156,5 +161,14 @@ class ProductController
             echo json_encode($res);
             exit();
         }
+    }
+    public function get_hint() {
+        if (isset($_GET['title'])) {
+            $title = $_GET['title'];
+            $res = $this->model->match($title);
+            header("Content-Type: application/json");
+            echo json_encode($res);
+            exit();
+        } 
     }
 }

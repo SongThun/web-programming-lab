@@ -1,18 +1,36 @@
+.auth-page {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+}
 .big-img {
     width: 100%;
-    aspect-ratio: 1/1;
+    height: 100vh;
     background-size: cover;
     background-repeat: no-repeat;
+}
+.auth-display {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 .auth-display h1{
     font-size: 6ex;
     font-weight: bold;
+    align-self: center;
+    padding: 0 5%;
 }
-
+.auth-display form {
+    min-width: 60%;
+}
 .auth-display .input-field{
     display: flex;
     flex-direction: column;
-    width: 28vw;
+    text-align: start;
+    width: 100%;
     margin-top: 2ex;
 }
 .auth-display button {
@@ -20,10 +38,32 @@
     background-color: var(--iris);
     border: none;
     color: white;
-    width: 28vw;
+    width: 100%;
     font-size: 2ex;
 }
 
 #login-form, #register-form{
     margin-bottom: 4em;
+}
+
+@media screen and (max-width: 768px) {
+
+    .big-img {
+        position: absolute;
+        top: 0;
+        z-index: -1;
+    }
+    .auth-display {
+        background-color: var(--snow);
+        margin: 0 10%;
+        height: 60%;
+        border-radius: var(--r)
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .auth-display {
+        margin: 0;
+        border-radius: 0;
+    }
 }

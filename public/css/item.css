@@ -20,7 +20,7 @@
 }
 
 .item-display p {
-    max-width: 30vw;
+    width: 80%;
 }
 
 .item-display h2 {
@@ -43,7 +43,11 @@
     background-color: var(--earth-yellow);
     border:none;
     font-size: 2ex;
-    width: 10vw;
+    width: 200px;
+}
+#similar-display .flex {
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 #similar-display h2{
@@ -52,11 +56,40 @@
 }
 
 #similar-display .card {
-    width: calc((100vw * 4/5) / 5);
-    aspect-ratio: 3/4.5;
+    width: 200px;
+    /* aspect-ratio: 3/4; */
     margin: 2vw;
 }
 #similar-display .card img {
     border-radius: var(--r);
     width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+    .item-display p {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 560px) {
+    .item-display {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .item-display img {
+        width: 100%;
+        margin-bottom: 2ex;
+    }
+
+}
+
+@media screen and (max-width: 460px) {
+    #similar-item .flex{
+        display: grid;
+        grid-template-columns: auto auto;
+    }
+    #similar-display .card {
+        width: 400px;
+    }
 }

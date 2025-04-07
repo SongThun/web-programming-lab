@@ -5,7 +5,7 @@
         <?php require __DIR__ . "/sort.php"; ?>
         <div id="product-display">
             <?php foreach ($products as $prod): ?>
-                <a class="card container space-between" href="<?= "?page=product&item=" . urlencode(strtolower($prod["title"])) . "-" . $prod["id"]; ?>">
+                <a class="card container" href="<?= "index.php?page=product&item=" . urlencode(strtolower($prod["title"])) . "-" . $prod["id"]; ?>">
                     <div class="img-div" style="background-image: url('public/images/<?= $prod["imageLink"] ?>')">
                         <div class="flex space-between">
                             <button class="tag tag-left"><?= $prod["catName"] ?></button>
@@ -13,7 +13,7 @@
                         </div>
                     </div>
                     <div class="img-info">
-                        <span>
+                        <span class="flex-column space-between">
                             <h1><?= $prod["title"] ?></h1>
                             <span>$<?= $prod["price"] ?></span>
                         </span>

@@ -132,7 +132,7 @@ function load_products(page_num, sort, filter) {
                 </div>
               </div>
               <div class="img-info">
-                <span>
+                <span class="flex-column space-between">
                   <h1>${prod.title}</h1>
                   <span>$${prod.price}</span>
                 </span>

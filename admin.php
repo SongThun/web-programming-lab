@@ -11,7 +11,7 @@
         echo '<a href="?page=login">login.</a>';
         exit();
     }
-
+    
     $page = isset($_GET['page']) ? $_GET['page'] : 'home';
     $valid_pages = ['home', 'product', 'login', 'register', 'logout'];
     
@@ -31,7 +31,7 @@
 </head>
 <body>
     <div class="container admin-page">
-        <?php require "app/views/include/sidebar.php" ?>
+        <?php require "app/views/include/admin-header.php" ?>
         <div class="main">
             <?php 
                 if (in_array($page, $valid_pages)) {

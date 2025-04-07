@@ -57,6 +57,9 @@ if (in_array($page, $valid_pages)) {
             else if ($method == "DELETE" && $action == 'delete') {
                 $controller->delete();
             }
+            else if ($method == "GET" && $action == 'none') {
+                $controller->get_hint();
+            }
             break;
         case 'cart': 
             $controller = new UserController();

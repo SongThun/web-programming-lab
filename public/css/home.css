@@ -5,48 +5,60 @@
 .banner {
   height: 500px;
   width: calc(100vw - 4vw);
-  margin: 0 2vw;
+  margin: 0 2vw 3vw 2vw;
   background-size: cover;
   background-repeat: no-repeat;
   align-content: center;
   background-position: bottom;
-  padding-bottom: 40px;
+  padding-top: 150px;
+  padding-bottom: 2rem;
   border-radius: var(--r);
-  justify-content: center;
 }
 .banner h1 {
   color: var(--snow);
   font-size: 6ex;
 }
-
-.banner form {
-  background-color: var(--iris);
-  border-radius: var(--c);
+#search-item {
+  background-color: white;
+  border-radius: var(--r);
+  width: 400px;
+  max-width: 90%;
+}
+#search-bar{
+  border-radius: var(--r);
   display: flex;
   align-items: center;
 }
-.banner input {
-  width: 30vw;
-  min-width: 200px;
-  border-radius: var(--c);
-  padding: 2ex 3ex;
-  font-size: 2.2ex;
+#search-bar input {
+  border-radius: var(--r);
+  padding: 2ex;
+  font-size: 2ex;
   border: none;
 }
 
-.banner i {
-  color: var(--snow);
+#search-bar i {
+  color: gray;
   font-size: 4ex;
   text-align: center;
 }
-.banner button {
+#search-bar button {
   padding: 0 2.5ex;
+}
+#search-hint ul {
+  display: flex;
+  flex-direction: column;
+}
+#search-hint li {
+  padding: 1ex 2ex;
+}
+#search-hint li:hover{
+  color: var(--tiffany-blue);
 }
 .home-box {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 3vw 2vw 0 2vw;
+  margin: 0 2vw 3vw 2vw;
   width: calc(100vw - 4vw);
   padding: 2vw;
   border-radius: var(--r);
@@ -55,26 +67,28 @@
 .home-box .card {
   margin: 2vw 2vw;
   justify-content: flex-start;
+  flex-shrink: 0;
 }
 
 #home-categories .card img {
   border-radius: var(--c);
   margin-bottom: 2vw;
 }
-
+.home-box .flex {
+  gap: 2ex;
+}
 #home-categories .card {
   text-align: center;
-  height: calc((100vw - 20vw) / 5 * 3/4); 
+  width: calc((100vw - 20vw) / 5 * 3/4); 
 }
 .home-box button {
   font-size: 5ex;
   font-weight: lighter;
   color:rgba(190, 190, 190, 0.808)
 }
-
 #home-popular .card{
   width: calc((100vw * 0.9) / 5);
-  aspect-ratio: 3/4.7;
+  /* aspect-ratio: 3/4.7; */
   border-radius: var(--r);
   justify-content: space-between;
   /* justify-content: flex-start; */
@@ -84,7 +98,33 @@
   width: 100%;
   border-radius: var(--r);
 }
-
 .home-box h1, .banner h1{
   font-weight: bold;
+}
+@media screen and (max-width: 768px) {
+  .banner h1 {
+    font-size: 4ex;
+    align-self: center;
+  }
+  .search-item {
+    width: 80vw;
+  }
+}
+@media screen and (max-width: 480px) {
+  .home-box h1 {
+    font-size: 2.4ex;
+    align-self: center;
+  }
+  
+  .home-box .card {
+    width:90% !important;
+    aspect-ratio: auto !important;
+    padding: 2vw;
+    flex-shrink: 0;
+  }
+
+  .home-box .card img {
+    width: 90%; 
+    border-radius: var(--r) !important;
+  }
 }

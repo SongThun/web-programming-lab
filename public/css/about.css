@@ -1,0 +1,95 @@
+#map {
+    height: 300px;
+    width: 90%;
+    max-width: 500px;
+    border-radius: var(--r);
+}
+
+.leaflet-popup {
+    width: 100px;
+    text-align: center;
+}
+
+.leaflet-popup.custom-popup .leaflet-popup-content {
+    font-size: 12px;
+    padding: 6px 8px;
+    margin: 0;
+}
+
+.leaflet-popup.custom-popup .leaflet-popup-tip {
+    width: 6px;
+    height: 6px;
+}
+#banner-title {
+    height: 300px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    background-position: bottom;
+    background-repeat: no-repeat;
+    text-align: center;
+    padding: 5%;
+}
+#banner-title h1 {
+    font-size: 6ex;
+    font-weight: bold;
+}
+#about-page h1 {
+    font-weight: bold;
+}
+#about-page .container-inset {
+    width: 700px;
+    max-width: 90%;
+}
+#about-page span {
+    font-weight: normal;
+}
+#about-page ul {
+    display: flex;
+    flex-direction: column;
+}
+#about-page .flex {
+    gap: 2ex;
+    justify-content: center;
+}
+#about-page .card {
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    background-color: rgb(229, 220, 255);
+    border-radius: var(--r);
+    padding: 3ex;
+}
+
+#about-page .container {
+    padding-bottom: 5rem;
+}
+
+.footer {
+    background-color: var(--iris);
+    color: white;
+    padding: 5%;
+    justify-content: space-evenly;
+}
+.footer h1 {
+    font-weight: bold;
+    color: var(--earth-yellow)
+}
+.wrap {
+    flex-wrap: wrap;
+}
+.text-center {
+    text-align: center;
+}
+@media screen and (max-width: 480px) {
+    .footer {
+        flex-direction: column;
+        align-items: center;
+    }
+}

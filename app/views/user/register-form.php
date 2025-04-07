@@ -1,4 +1,4 @@
-<div class="flex">
+<div class="auth-page">
     <div class="container auth-display">
         <h1>Create an account</h1>
         <form novalidate class="container" id="register-form" action="?page=login" method="POST">

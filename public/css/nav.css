@@ -7,6 +7,12 @@ ul li {
     display: inline;
 }
 
+.collapse-btn {
+    border: none;
+    font-size: 3ex;
+    padding: 0;
+    margin: 0;
+}
 
 .info {
     display: flex;
@@ -26,18 +32,12 @@ ul li {
     font-weight: bolder;
 }
 
-.hnav .selected, .vnav .selected {
+.hnav .selected {
     color: var(--earth-yellow);
     font-weight: bold;
 }
 
-.sidebar {
-    position: sticky;
-    top: 0;
-    bottom: 0;
-    display: flex;
-    flex-direction: column;
-}
+
 
 .vnav {
     display: flex;
@@ -54,37 +54,43 @@ ul li {
     align-items: center;
 }
 
-.sidebar {
-    display: flex;
-    flex-direction: column;
-}
-.sidebar #add-btn {
-    width: 100%;
-}
-.sidebar #add-btn button{
-    width: 100%;
-    background-color: var(--earth-yellow);
-    border: none;
-    font-size: 2ex;
-    font-weight: bold;
-    margin-bottom: 2ex;
+
+
+
+/* Style for the collapsed menu */
+.dynamic-nav ul.collapsed {
+    display: none ; 
 }
 
-.sidebar #filter-categories {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+.dynamic-nav ul {
+    display: block ; 
 }
 
-.sidebar #filter-categories button {
-    border-radius: 0;
-    border: none;
-    width: 100%;
-    text-align: left;
+
+@media screen and (max-width: 768px) {
+    .mobile-hidden {
+        display: none !important;
+    } 
+    .dynamic-nav .collapsed {
+        display: flex; 
+        position: absolute !important;
+        flex-direction: column;
+        align-items: start;
+        top: 30px;
+        left: 0;
+        width: 100%;
+        background-color: var(--snow); 
+        z-index: 100; 
+    }
+
+    .collapsed li {
+        padding: 2ex;
+    }
+    .collapse-btn {
+        display: block; 
+    }
 }
-.sidebar #filter-categories .btn-active {
-    background-color: none;
-    color: black;
-    font-weight: bold;
-    border-left: 3px solid var(--tiffany-blue);
+
+@media screen and (max-width: 480px) {
+    
 }

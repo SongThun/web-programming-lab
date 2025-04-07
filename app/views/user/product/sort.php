@@ -1,4 +1,5 @@
-<div class="flex center mb-2">
+<div class="flex center align-center mb-2">
+    <button class="me-2" id="filter-btn" style="display: none;"><i class='bx bx-filter'></i></button>
     <label class="me-2" for="sort">Sort by</label>
     <select name="sort" id="sort-select">
         <option selected value="createdDate-DESC">Newest</option>
@@ -8,3 +9,22 @@
         <option value="salesAmount-DESC">Best selling</option>
     </select>
 </div>
+
+<script>
+    const filterBtn = document.querySelector("#filter-btn");
+    const filterDiv = document.querySelector("#filter");
+    function changeSort() {
+        if (window.matchMedia("(max-width: 768px)").matches) {
+            filterBtn.style.display = 'block';
+        } else {
+            filterBtn.style.display = "none";
+        }
+    }
+
+    window.addEventListener('resize', changeSort);
+    window.addEventListener('load', changeSort);
+
+    filterBtn.addEventListener('click', () => {
+        filterDiv.classList.toggle('filter-collapsed');
+    })
+</script>

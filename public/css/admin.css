@@ -1,16 +1,13 @@
 .admin-page .big-img {
-    height: 50vw;
+    height: 100vh;
     text-align: center;
     padding: 20%;
+    
 }
-
 .admin-page .big-img h2 {
-    padding: 0;
-    margin: 0;
     color: white;
     font-size: 6ex;
 }
-
 .admin-page .grid-1-4{
     gap: 2vw;
 }
@@ -105,8 +102,12 @@ fieldset form {
 }
 
 .text-field textarea{
+    width: 100%;
     border-radius: 10px;
     resize: none;
+    font-family: 'Lexend', sans-serif;
+    padding: 2%;
+    box-sizing: border-box;
 }
 
 .image-upload {
@@ -138,8 +139,8 @@ fieldset form {
     align-items: start;
 }
 .image-preview img {
-    height: 400px;
-    width: auto;
+    width: 50%;
+    height: auto;
 }
 
 fieldset form button {
@@ -155,10 +156,99 @@ fieldset form button {
     flex-direction: column;
     align-items: start;
 }
+.sidebar {
+    position: sticky;
+    top: 60px;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    font-size: 1.8ex;
+}
+
+#add-btn {
+    width: 100%;
+    background-color: var(--earth-yellow);
+    border: none;
+    font-size: 2ex;
+    font-weight: bold;
+    margin-bottom: 2ex;
+}
+
+.sidebar #filter-categories {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.sidebar #filter-categories button {
+    border-radius: 0;
+    border: none;
+    width: 100%;
+    text-align: left;
+    padding: 2ex;
+}
+.sidebar #filter-categories .btn-active {
+    background-color: none;
+    color: black;
+    font-weight: bold;
+    border-left: 3px solid var(--tiffany-blue);
+}
+
 /* Optional: Add responsive behavior for smaller screens */
 @media (max-width: 768px) {
     table th, table td {
         padding: 8px;
-        font-size: 14px;
+        font-size: 2ex;
+    }
+    td img {
+        width: 80px !important;
+    }
+    fieldset {
+        width: 80%;
+    }
+    .side {
+        width:fit-content;
+    }
+    #product-utils {
+        display: flex;
+        align-items: center;
+        gap: 2ex;
+    }
+    #sidebar-btn {
+        border:none;
+        font-size: 3ex;
+        padding: 0;
+        margin: 0;
+    }
+    #add-btn {
+        max-width: 20vw;
+        padding: 1ex;
+        margin: 0;
+    }
+
+    .sidebar-collapsed {
+        display: flex !important;
+        position: absolute;
+        top: 81px;
+        left: 2vw;
+        background-color: var(--snow);
+        width: 30vw;
+        border: 1px solid gray;
+        height: fit-content;
+    }
+}
+@media screen and (max-width: 480px) {
+    table {
+        font-size: 1.8ex;
+    }
+    .input-field {
+        width: 80vw;
+    }
+    .input-row {
+        display: flex;
+        flex-direction: column !important;
+    }
+    .admin-page .big-img {
+        position: relative;
     }
 }

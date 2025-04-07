@@ -1,4 +1,4 @@
-<div class="flex">
+<div class="auth-page">
     <div class="container auth-display">
         <h1>Welcome back!</h1>
         <form novalidate class="container" id="login-form" action="?page=login" method="POST">

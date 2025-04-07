@@ -301,4 +301,17 @@ class ProductModel
             return ["status" => "fail", "msg" => $e->getMessage()];
         }
     }
+
+    public function match($title) {
+        try {
+            $regex = $title . "%";
+            $stmt = $this->db->prepare("SELECT title FROM products WHERE title LIKE ?");
+            $stmt->bind_param("s", $regex);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            return ["status" => "success", "data"=>$result->fetch_all(MYSQLI_ASSOC)];
+        } catch (Exception $e) {
+            return ["status" => "fail", "msg" => $e->getMessage()];
+        }
+    }
 }

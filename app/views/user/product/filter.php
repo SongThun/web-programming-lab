@@ -2,7 +2,7 @@
 $min_price = 0;
 $max_price = ceil($prices['max_price']);
 ?>
-<div>
+<div id="filter">
     <div id="filter-search" class="mb-2">
         <i class='c-iris bx bx-search bx-rotate-90 me-2'></i>
         <input type="text" placeholder="search an item..." value=<?= $title ?>>
@@ -44,6 +44,11 @@ $max_price = ceil($prices['max_price']);
 </div>
 
 <script>
+
+
+
+
+
     const sliderMin = document.getElementById('price-min');
     const sliderMax = document.getElementById('price-max');
     const minDisplay = document.getElementById('min-price-display');
