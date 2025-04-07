@@ -9,6 +9,7 @@ require_once __DIR__ . "/app/controllers/UserController.php";
 session_start();
 
 $page = isset($_GET['page']) ? $_GET['page'] : 'home';
+$role = isset($_SESSION['role']) ? $_SESSION['role'] : 'guest';
 
 $method = $_SERVER['REQUEST_METHOD'];
 // function sendResponse($status, $data = [], $message = '') {
@@ -61,6 +62,14 @@ if (in_array($page, $valid_pages)) {
             $controller = new UserController();
             if (isset($_GET['action']) && $_GET['action'] == 'checkout') {
                 $controller->checkout();
+            } else if (isset($_GET['item'])) {
+                if ($role === 'user') {
+                    $controller = new UserController();
+                    $controller->add_to_cart();
+                }
+                else {
+                    echo json_encode(["status"=>"fail", "msg" => "Please login to add to cart."]);
+                }
             }
             break;
         default:
@@ -68,15 +77,3 @@ if (in_array($page, $valid_pages)) {
     }
 } 
 
-$role = isset($_SESSION['role']) ? $_SESSION['role'] : 'guest';
-
-if ($role === 'user') {
-    if (isset($_GET['item'])) {
-        $controller = new UserController();
-        $controller->add_to_cart();
-    }
-}
-else {
-    echo json_encode(["status"=>"fail", "msg" => "Please login to add to cart."]);
-    exit();
-}

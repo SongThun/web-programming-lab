@@ -1,4 +1,4 @@
-<div>
+<div class="flex space-between" id="product-utils">
     <input id="filter-search" type="text" placeholder="Search...">
     <select name="sort" id="sort-select">
         <option selected value="createdDate-DESC">Newest</option>

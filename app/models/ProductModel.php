@@ -256,20 +256,28 @@ class ProductModel
     }
     public function update($id, $data) {
         $sql = "UPDATE products 
-                SET title = ?, catID = ?, productDesc = ?, price = ?, inStock = ?, discount = ?, imageLink = ?
-                WHERE id = ?";
+                SET title = ?, catID = ?, productDesc = ?, price = ?, inStock = ?, discount = ?";
+        $params = [
+            $data['title'], 
+            $data['catID'], 
+            $data['productDesc'],
+            $data['price'], 
+            $data['inStock'], 
+            $data['discount']
+        ];
+        $type = "sisdid";
+        if ($data['imageLink'] != "") {
+            $sql .= ", imageLink = ?";
+            $params[] = $data['imageLink'];
+            $type .= "s";
+        }
+        $sql .= " WHERE id=?";
+        $params[] = $id;
+        $type .= "i";
+
         try {
             $stmt = $this->db->prepare($sql);
-            $stmt->bind_param('sisdidsi', 
-                $data['title'], 
-                $data['catID'], 
-                $data['productDesc'],
-                $data['price'], 
-                $data['inStock'], 
-                $data['discount'], 
-                $data['imageLink'],
-                $id
-            );
+            $stmt->bind_param($type, ...$params);
             
             $stmt->execute();
             $this->db->commit();

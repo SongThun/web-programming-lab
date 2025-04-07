@@ -1,21 +1,19 @@
 <?php
-    if (session_status() === PHP_SESSION_NONE) {
-        session_start();
-    }
+    session_start();
 
     $role = isset($_SESSION['role']) ? $_SESSION['role'] : 'guest';
     if ($role === 'user') {
         echo "Unauthorized access.";
         exit();
     }
-    if ($role === 'guest') {
+    else if ($role === 'guest') {
         echo "Unauthroized access. Please ";
         echo '<a href="?page=login">login.</a>';
         exit();
     }
 
     $page = isset($_GET['page']) ? $_GET['page'] : 'home';
-    $valid_pages = ['home', 'product', 'customer', 'admin-info', 'sales'];
+    $valid_pages = ['home', 'product', 'login', 'register', 'logout'];
     
     require_once "app/controllers/AdminController.php";
     $controller = new AdminController();
@@ -28,10 +26,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="public/css/index.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    
     <title>Lorem ipsum Admin</title>
 </head>
 <body>
-    <div class="admin-page">
+    <div class="container admin-page">
         <?php require "app/views/include/sidebar.php" ?>
         <div class="main">
             <?php 
@@ -51,14 +50,23 @@
                                     break;
                             }
                             break;
-                        case 'customer':
-                            $controller->customer_index();
+                        // case 'customer':
+                        //     $controller->customer_index();
+                        //     break;
+                        // case 'admin-info':
+                        //     $controller->admin_index();
+                        //     break;
+                        // case 'sales':
+                        //     $controller->sales_index();
+                        //     break;
+                        case 'login':
+                            $auth_controller->authorize();
                             break;
-                        case 'admin-info':
-                            $controller->admin_index();
+                        case 'logout':
+                            $auth_controller->logout();
                             break;
-                        case 'sales':
-                            $controller->sales_index();
+                        case 'register':
+                            $auth_controller->register();
                             break;
                         default:
                             $controller->index();

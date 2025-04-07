@@ -14,10 +14,10 @@ class AuthModel {
         $user = $result->fetch_assoc();
         return $user;
     }
-    public function add_user($username, $password) {
+    public function add_user($username, $password, $email) {
         try {
-            $stmt = $this->db->prepare("INSERT INTO users(username,password) VALUES (?,?)");
-            $stmt->bind_param("ss", $username, $password);
+            $stmt = $this->db->prepare("INSERT INTO users(username,password,email) VALUES (?,?,?)");
+            $stmt->bind_param("sss", $username, $password,$email);
             $stmt->execute();
         } catch (Exception $e){
             return ["status" => "fail", "msg" => $e->getMessage()];

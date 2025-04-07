@@ -5,6 +5,7 @@
 @import url("item.css");
 @import url('authorize.css');
 @import url('cart.css');
+@import url('admin.css');
 
 :root {
   --tiffany-blue: hsl(172, 45%, 74%);

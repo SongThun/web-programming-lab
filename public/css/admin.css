@@ -1,0 +1,164 @@
+.admin-page .big-img {
+    height: 50vw;
+    text-align: center;
+    padding: 20%;
+}
+
+.admin-page .big-img h2 {
+    padding: 0;
+    margin: 0;
+    color: white;
+    font-size: 6ex;
+}
+
+.admin-page .grid-1-4{
+    gap: 2vw;
+}
+
+.admin-page #filter-search {
+    width: 50vw;
+    border-radius: var(--c);
+    border: 1px solid gray;
+}
+.admin-page #sort-select {
+    padding: 1ex;
+    border: 1px solid gray;
+}
+
+.admin-page #pagination {
+    width: 10vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.admin-page #pagination button {
+    border: none;
+}
+
+.admin-page #product-display img {
+    width: 100px;
+    aspect-ratio: 1/1;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--snow);
+    border-radius: 8px;
+    overflow: hidden;
+}
+table thead, table tbody {
+    width: 100%;
+}
+table tr {
+    width: 100%;
+}
+table th, table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Allow columns to expand based on content but ensure they don't get too wide */
+table th, table td {
+    word-wrap: break-word; /* Allows long words to wrap */
+    white-space: normal; /* Prevents content from overflowing */
+}
+
+/* Optional: Set a maximum width to avoid extremely wide columns */
+table td:nth-child(2), table th:nth-child(2) {
+    max-width: 250px; /* Title column */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Adds ellipsis for overflow text */
+}
+
+table td:nth-child(7), table th:nth-child(7) {
+    max-width: 150px; /* Image column */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Adds ellipsis for overflow text */
+}
+
+table th, table td {
+    min-width: 50px; /* Ensures no column becomes too narrow */
+}
+
+fieldset {
+    border: none;
+}
+fieldset form {
+    gap: 2ex;
+}
+.input-row {
+    width: 100%;
+    display: flex;
+    gap: 2ex;
+}
+.input-field select {
+    border-radius: 10px;
+    width: 100%;
+    padding: 1.5ex;
+}
+.text-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.text-field textarea{
+    border-radius: 10px;
+    resize: none;
+}
+
+.image-upload {
+    display: grid;
+    row-gap: 1ex;
+}
+
+.image-upload input[type="file"] {
+    opacity: 0;
+    height: 0;
+}
+.image-upload-input {
+    border-radius: 10px;
+    text-align: center;
+    padding: 1ex;
+    border: 2px solid gray;
+    color: gray;
+    background-color: rgb(252, 252, 252);
+    width: 100px;
+}
+.image-upload-input:hover{
+    background-color: white;
+    border: 2px solid var(--tiffany-blue);
+    color: var(--tiffany-blue);
+}
+.image-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+.image-preview img {
+    height: 400px;
+    width: auto;
+}
+
+fieldset form button {
+    background-color: var(--iris);
+    width: 200px;
+    color: white;
+    border: none;
+    font-size: 2ex;
+}
+
+.info-group {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+/* Optional: Add responsive behavior for smaller screens */
+@media (max-width: 768px) {
+    table th, table td {
+        padding: 8px;
+        font-size: 14px;
+    }
+}

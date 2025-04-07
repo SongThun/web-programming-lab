@@ -1,30 +1,67 @@
-<div>
-    <div>
-        <span><a href="admin.php?page=product">back</a></span>
-        <h2 class="title">View product</h2>
+<div class="container-inset">
+    <a class="flex" href="admin.php?page=product"><i class='bx bx-arrow-back me-2'></i>back</a>
+    <div class="container">
+        <h1 class="title mb-2">View product</h1>
+        <fieldset class="form-fieldset" disabled>
+            <form class="container" id="product-form-edit" action="#">
+                <div class="input-row flex">
+                    <div class="input-field">
+                        <label>Product name:</label>
+                        <input id="product-name" name="title" type="text" placeholder="Enter a pretty name" value=<?= $prod["title"] ?> required>
+                    </div>
+                    <div class="input-field">
+                        <label>Category:</label>
+                        <select name="catID" id="product_cat" value=<?= $prod["catName"] ?> required>
+                            <?php foreach ($categories as $cat): ?>
+                                <option value=<?= $cat['catID'] ?>><?= $cat['catName'] ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="input-row flex">
+                    <div class="input-field">
+                        <label>Price:</label>
+                        <div class="input-wrap">
+                            <span class="ms-1">$</span>
+                            <input class="input-hidden" name="price" type="number" min="0" step="0.01" value=<?= $prod["price"] ?> required>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label>Discount:</label>
+                        <div class="input-wrap">
+                            <span class="ms-1">%</span>
+                            <input class="input-hidden" name="discount" type="number" step="0.01" value=<?= $prod["discount"] * 100?>>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label>In stock:</label>
+                        <input name="inStock" type="number" min="0" step="1" value=<?= $prod["inStock"] ?> required>
+                    </div>
+                </div>
+
+                <div class="text-field">
+                    <label>Description:</label>
+                    <textarea name="productDesc" rows="6" cols="80" placeholder="Describe your pretty product">
+                        <?= $prod["productDesc"] ?>
+                    </textarea>
+                </div>
+                <div class="image-upload">
+                    <label for="">Image:</label>
+                    <label class="image-upload-input" for="imageLink">Choose file</label>
+                    <input id="imageLink" name="imageLink" type="file" accept=".png,.jpg,.jpeg">
+                    <div class="image-preview">
+                        <img id="image_preview" src=<?= "public/images/" . $prod["imageLink"] ?> alt=<?= $prod['title'] ?>>
+                    </div>
+                </div>
+                <button style="display: none" class="submit-btn" type="submit" value=<?= $prod["id"] ?>>Submit</button>
+            </form>
+        </fieldset>
+        <div class="flex center">
+            <button class="edit-btn me-2" type="none">Edit</button>
+            <button class="delete-btn" type="none">Delete</button>
+        </div>
     </div>
-    <fieldset class="form-fieldset" disabled>
-        <form id="product-form-edit" action="#">
-            Product name: <input id="product-name" name="title" type="text" placeholder="Enter a pretty name" value=<?= $prod["title"] ?> required >
-            Category: <select name="catID" id="product_cat" value=<?= $prod["catName"]?> required >
-                <?php foreach ($categories as $cat): ?>
-                    <option value=<?= $cat['catID'] ?>><?= $cat['catName'] ?></option>
-                <?php endforeach; ?>
-            </select>
-            Price: <input name="price" type="number" min="0" step="0.01" value=<?= $prod["price"] ?> required >
-            In stock: <input name="inStock" type="number" min="0" value=<?= $prod["inStock"] ?> required >
-            Discount: <input name="discount" type="number" step="0.01" value=<?= $prod["discount"] ?> >
-            Description: <textarea name="productDesc" rows="4" cols="50" placeholder="Describe your pretty product" required >
-                <?= $prod["productDesc"]?>
-            </textarea>
-            Image: 
-            <img id="image_preview" src=<?= "public/images/" . $prod["imageLink"]?> alt="">
-            <input id="image_upload" name="imageLink" type="file" required>
-            <button class="submit-btn" type="submit" style="display: none;" value=<?= $prod["id"] ?>>Submit</button>
-        </form>
-    </fieldset>
-    <button class="edit-btn" type="none">Edit</button>
-    <button class="delete-btn" type="none">Delete</button>
+    
 </div>
 
 <script src="public/js/crud.js"></script>

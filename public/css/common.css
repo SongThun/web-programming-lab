@@ -10,10 +10,6 @@
 .align-flex-start {
   align-items: flex-start;
 }
-.btn-active {
-  background-color: blue;
-  color: white;
-}
 
 .btn-transparent {
   background: none;
@@ -116,6 +112,7 @@ input {
   padding: 1.5ex;
   border-radius: 10px;
   box-sizing: border-box;
+  width: 100%;
 }
 
 div {
@@ -129,18 +126,35 @@ button {
   border-radius: 10px;
   background-color: var(--snow);
   border: 1px solid black;
+  text-align: center;
 }
 
-button:hover {
+button:hover, .btn:hover{
   cursor: pointer;
 }
 
 select {
   border: 1px solid gray;
-  padding: 2px;
+  padding: 1ex;
   border-radius: var(--c);
 }
 
+.input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 1ex;
+  border: 1px solid gray;
+  border-radius: 10px;
+}
+.input-hidden {
+  border: none;
+}
+.icon {
+  width: 15px;
+}
+.icon:hover{
+  cursor: pointer;
+}
 .slider-wrapper {
   position: relative;
   height: 1.5em;

@@ -1,4 +1,4 @@
-const display = document.querySelector("#product-display");
+const display = document.querySelector("#admin-product-display");
 const pagination = document.querySelector("#pagination");
 const categories = document.querySelectorAll("#filter-categories button");
 const all_cats = Array.from(categories)
@@ -99,15 +99,15 @@ function load_products(page_num, sort, filter) {
         res["data"].forEach((prod) => {
           html += `<tr>
                         <td>${prod["id"]}</td>
-                        <td><a href="admin.php?page=product&action=edit&item=${prod["id"]}">
-                            <span>${prod["catName"]}</span>
-                            <span>${prod["title"]}</span>
-                        </a></td>
-                        <td>${prod["price"]}</td>
+                        <td><a class="info-group" href="admin.php?page=product&action=view&item=${prod['id']}">
+                                <small>${prod["catName"]}</small>
+                                <h3>${prod["title"]}</h3>
+                            </a></td>
+                        <td>$${prod["price"]}</td>
                         <td>${prod["salesAmount"]}</td>
                         <td>${prod["inStock"]}</td>
-                        <td>${prod["discount"]}</td>
-                        <td><img src="public/images/${prod["imageLink"]}" alt=""></td>
+                        <td>${prod["discount"] * 100}\%</td>
+                        <td><img src="public/images/${prod["imageLink"]}" alt=${prod['title']}></td>
                     </tr>`;
         });
         display.innerHTML = html;

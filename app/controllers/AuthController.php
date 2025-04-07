@@ -25,7 +25,8 @@ class AuthController
 
             $username = trim($data["username"]);
             $password = password_hash(trim($data["password"]), PASSWORD_DEFAULT);
-            $result = $this->model->add_user($username, $password);
+            $email = trim($data['email']);
+            $result = $this->model->add_user($username, $password, $email);
             if ($result["status"] == "success") {
                 $_SESSION['user_id'] = $result["data"]["userID"];
                 $_SESSION['username'] = $result["data"]["username"];

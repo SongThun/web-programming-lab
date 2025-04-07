@@ -41,7 +41,7 @@
         let item_id = document.querySelector("#add-cart-btn").value;
         let amount = document.querySelector("#item-amount").value;
 
-        let url = `api.php?item=${item_id}&amount=${amount}`;
+        let url = `api.php?page=cart&item=${item_id}&amount=${amount}`;
         fetch(url)
             .then(response => response.json())
             .then(res => {

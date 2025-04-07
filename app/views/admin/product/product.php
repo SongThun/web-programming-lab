@@ -1,6 +1,6 @@
-<div>
-    <div>
-        <a href="admin.php?page=product&action=add">Add product</a>
+<div class="container-inset grid-1-4">
+    <div class="sidebar">
+        <a id="add-btn" href="admin.php?page=product&action=add"><button >Add product</button></a>
         <div id="filter-categories">
             <button value="all" class="btn-active">All</button>
             <?php foreach ($categories as $cat): ?>
@@ -23,19 +23,19 @@
                     <th>Image</th>
                 </tr>
             </thead>
-            <tbody id="product-display">
+            <tbody id="admin-product-display">
                 <?php foreach ($products as $prod): ?>
                     <tr>
                         <td><?= $prod["id"] ?></td>
-                        <td><a href=<?= "admin.php?page=product&action=view&item=" . $prod['id'] ?>>
-                                <span><?= $prod["catName"] ?></span>
-                                <span><?= $prod["title"] ?></span>
+                        <td><a class="info-group" href=<?= "admin.php?page=product&action=view&item=" . $prod['id'] ?>>
+                                <small><?= $prod["catName"] ?></small>
+                                <h3><?= $prod["title"] ?></h3>
                             </a></td>
-                        <td><?= $prod["price"] ?></td>
+                        <td>$<?= $prod["price"] ?></td>
                         <td><?= $prod["salesAmount"] ?></td>
                         <td><?= $prod["inStock"] ?></td>
-                        <td><?= $prod["discount"] ?></td>
-                        <td><img src=<?= "public/images/" . $prod["imageLink"] ?> alt=""></td>
+                        <td><?= $prod["discount"] * 100?>%</td>
+                        <td><img src=<?= "public/images/" . $prod["imageLink"] ?> alt=<?= $prod['title']?>></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>

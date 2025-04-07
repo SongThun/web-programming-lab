@@ -7,12 +7,12 @@ require_once __DIR__ . '/app/controllers/UserController.php';
 session_start();
 
 $page = isset($_GET['page']) ? $_GET['page'] : 'home';
-$role = isset($_SESSION['role']) ? $_SESSION['role'] : 'guest';
+// $role = isset($_SESSION['role']) ? $_SESSION['role'] : 'guest';
 
-if ($role === 'admin' && !in_array($page, ['logout','login','register'])) {
-    require "admin.php";
-    exit();
-}
+// if ($role === 'admin' && !in_array($page, ["", 'logout','login','register'])) {
+//     require "admin.php";
+//     exit();
+// }
 
 
 $valid_pages = ['home', 'product', 'about', 'login', 'register', 'logout', 'admin', 'cart'];
@@ -32,6 +32,7 @@ $user_controller = new UserController();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="public/css/index.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    
     <title>Lorem ipsum</title>
 </head>
 

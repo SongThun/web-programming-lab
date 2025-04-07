@@ -8,7 +8,10 @@
             </div>
             <div class="input-field" id="password-input">
                 <label for="password">Password</label>
-                <input type="password" name="password" required autocomplete="current-password">
+                <div class="input-wrap">
+                    <input class="input-hidden" type="password" required minlength="8">
+                    <img class="icon auth-icon me-2 ms-1" src="public/images/visibility_off.svg" data-id="password-input">
+                </div>
             </div>
             <span class="err flex mt-1 c-red"></span>
             <button type="submit">Login</button>
@@ -17,7 +20,7 @@
     </div>
     <div class="big-img" style="background-image: url('public/images/login-illustration.jpg')"></div>
 </div>
-
+<script src="public/js/auth.js"></script>
 <script>
     const login_form = document.getElementById('login-form');
 
@@ -50,9 +53,9 @@
                 })
                 .then(res => {
                     if (res.status === 'success') {
-                        window.location.href = "index.php"; 
+                        window.location.href = "index.php";
                     } else {
-                        err.innerHTML = "<i class='bx bx-error-circle me-1'></i> Incorrect username or password"; 
+                        err.innerHTML = "<i class='bx bx-error-circle me-1'></i> Incorrect username or password";
                         document.querySelector("#password-input input").value = "";
                     }
                 })

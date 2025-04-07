@@ -26,7 +26,7 @@ ul li {
     font-weight: bolder;
 }
 
-.hnav .selected {
+.hnav .selected, .vnav .selected {
     color: var(--earth-yellow);
     font-weight: bold;
 }
@@ -49,18 +49,42 @@ ul li {
     min-height: 100vh;
 }
 .info a, .info span {
-    margin-right: 2vw;
+    margin-left: 2vw;
     display: flex;
     align-items: center;
 }
 
 .sidebar {
-    margin: 2ex;
     display: flex;
     flex-direction: column;
 }
+.sidebar #add-btn {
+    width: 100%;
+}
+.sidebar #add-btn button{
+    width: 100%;
+    background-color: var(--earth-yellow);
+    border: none;
+    font-size: 2ex;
+    font-weight: bold;
+    margin-bottom: 2ex;
+}
 
-.admin-page{
-    display: grid;
-    grid-template-columns: 1fr 5fr;
+.sidebar #filter-categories {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.sidebar #filter-categories button {
+    border-radius: 0;
+    border: none;
+    width: 100%;
+    text-align: left;
+}
+.sidebar #filter-categories .btn-active {
+    background-color: none;
+    color: black;
+    font-weight: bold;
+    border-left: 3px solid var(--tiffany-blue);
 }

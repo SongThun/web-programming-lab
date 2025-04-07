@@ -36,7 +36,7 @@
     async function addItem(id, title, e) {
         e.preventDefault(); // prevent <a> tag navigation
         e.stopImmediatePropagation(); // stop event bubbling
-        const response = await fetch(`api.php?item=${id}&amount=1`);
+        const response = await fetch(`api.php?page=cart&item=${id}&amount=1`);
         const res = await response.json();
         if (res["status"] === "success") {
             alert(`${title} added to cart!`);
