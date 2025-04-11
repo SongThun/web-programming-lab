@@ -30,6 +30,11 @@ body {
   display: flex;
   flex-direction: column;
   overflow: visible;
+  min-height: 100vh;
+  position: relative;
+  padding-bottom: calc(2 * 10px + 2ex * 2 + 2vw);
+  box-sizing: border-box;
+  width: 100%;
 }
 
 footer {
@@ -38,7 +43,10 @@ footer {
   text-align: center;
   padding: 10px;
   width: auto;
+  position: absolute;
   bottom: 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 header {

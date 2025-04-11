@@ -17,10 +17,9 @@ authIcons.forEach((e) => {
 });
 
 const register_form = document.getElementById('register-form');
-
+console.log("register")
 register_form.addEventListener("submit", function (e) {
     e.preventDefault();
-
     let email = document.querySelector("#email-input input").value;
     let username = document.querySelector("#username-input input").value;
     let password = document.querySelector("#password-input input").value;
@@ -39,7 +38,9 @@ register_form.addEventListener("submit", function (e) {
     let isValid = true;
 
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-    if (!emailPattern.test(email)) {
+    
+    if (email !== '' && !emailPattern.test(email)) {
+        console.log("email ", email);
         emailError.innerHTML = "<i class='bx bx-error-circle me-1'></i> Not a valid email";
         isValid = false;
     }
@@ -83,9 +84,7 @@ register_form.addEventListener("submit", function (e) {
     .then(res => {
         if (res.status === 'success') {
             window.location.href = "index.php";
-        } else {
-            // Handle other response errors if needed
-        }
+        } 
     })
     .catch(error => {
         console.error(error);

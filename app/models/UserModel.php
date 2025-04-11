@@ -32,6 +32,20 @@ class UserModel {
             return ["status" => "fail", "msg" => $e->getMessage()];
         }
     }
+    public function delete_cart_item($userid, $itemid) {
+        $this->db->begin_transaction();
+        try {
+            $sql = "DELETE FROM cart WHERE userID = ? AND productID = ?";
+            $stmt = $this->db->prepare($sql);
+            $stmt->bind_param("ii", $userid, $itemid);
+            $stmt->execute();
+            $this->db->commit();
+            return ["status"=>"success", "data"=>$this->get_cart($userid)];
+        } catch (Exception $e) {
+            $this->db->rollback();
+            return ["status"=>"fail", "msg"=> $e->getMessage()];
+        }
+    }
     public function get_cart($userid) {
         $sql = "SELECT c.amount, p.id, p.title, p.price, (p.price * c.amount) AS total, p.imageLink
                 FROM cart c 
@@ -59,6 +73,5 @@ class UserModel {
         $result = $stmt->get_result();
         return $result;
     }
-    
 }
 ?>

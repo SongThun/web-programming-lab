@@ -25,6 +25,16 @@ class UserController
             }
         }
     }
+    public function remove_from_cart() {
+        if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
+            $itemid = $_GET['item'];
+            $userid = $_SESSION['user_id'];
+            $res = $this->model->delete_cart_item($userid, $itemid);
+            header("Content-Type: application/json");
+            echo json_encode($res);
+            exit();
+        }
+    }
     public function cart_index() {
         $userid = $_SESSION['user_id'];
         $items = $this->model->get_cart($userid);

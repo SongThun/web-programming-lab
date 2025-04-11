@@ -7,7 +7,7 @@
                 <div class="input-row flex">
                     <div class="input-field">
                         <label>Product name:</label>
-                        <input id="product-name" name="title" type="text" placeholder="Enter a pretty name" value=<?= $prod["title"] ?> required>
+                        <input id="product-name" name="title" type="text" placeholder="Enter a pretty name" value="<?= $prod["title"] ?>" required>
                     </div>
                     <div class="input-field">
                         <label>Category:</label>

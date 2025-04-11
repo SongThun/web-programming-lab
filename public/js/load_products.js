@@ -6,7 +6,9 @@ const priceMax = document.querySelector("#price-max");
 const search = document.querySelector("#filter-search input");
 const sort_select = document.querySelector("#sort-select");
 
-const all_cats = Array.from(categories.querySelectorAll("button")).map(btn => btn.value);
+const all_cats = Array.from(categories.querySelectorAll("button")).map(
+  (btn) => btn.value
+);
 
 let current = 1;
 let sort = { by: "createdDate", order: "DESC" };
@@ -43,7 +45,7 @@ document.querySelector("#remove-all").addEventListener("click", () => {
 // Update categories filter
 const updateCategories = debounce(() => {
   const activeButtons = categories.querySelectorAll("button.btn-active");
-  filter.categories = Array.from(activeButtons).map(btn => btn.value);
+  filter.categories = Array.from(activeButtons).map((btn) => btn.value);
   load_products(1, sort, filter);
 }, 500);
 
@@ -81,23 +83,31 @@ function attachPaginationEvents() {
   const prevbtn = document.querySelector("#pagination-bar #prev");
   const nextbtn = document.querySelector("#pagination-bar #next");
 
-  if (prevbtn) prevbtn.addEventListener("click", () => load_products(current - 1, sort, filter));
-  if (nextbtn) nextbtn.addEventListener("click", () => load_products(current + 1, sort, filter));
+  if (prevbtn)
+    prevbtn.addEventListener("click", () =>
+      load_products(current - 1, sort, filter)
+    );
+  if (nextbtn)
+    nextbtn.addEventListener("click", () =>
+      load_products(current + 1, sort, filter)
+    );
 
-  document.querySelectorAll("#pagination-bar button[data-page]").forEach((btn) => {
-    const page = btn.getAttribute("data-page");
-    if (page) {
-      btn.addEventListener("click", () => {
-        load_products(parseInt(page), sort, filter);
-      });
-    }
-  });
+  document
+    .querySelectorAll("#pagination-bar button[data-page]")
+    .forEach((btn) => {
+      const page = btn.getAttribute("data-page");
+      if (page) {
+        btn.addEventListener("click", () => {
+          load_products(parseInt(page), sort, filter);
+        });
+      }
+    });
 }
 attachPaginationEvents();
 
 function bindAddToCart() {
   const buttons = document.querySelectorAll(".add-cart-btn");
-  buttons.forEach(btn => {
+  buttons.forEach((btn) => {
     btn.onclick = (e) => {
       const id = btn.dataset.id;
       const title = btn.dataset.title;
@@ -119,16 +129,20 @@ function load_products(page_num, sort, filter) {
         let total_pages = res["total_pages"];
         current = update_pagination(page_num, total_pages);
         let products_html = "";
-
-        res["data"].forEach((prod) => {
-          const url = `?page=product&item=${encodeURIComponent(prod.title.toLowerCase() + '-' + prod.id)}`;
-          const img = `public/images/${prod.imageLink}`;
-          products_html += `
+        if (res["data"].length > 0) {
+          res["data"].forEach((prod) => {
+            const url = `index.php?page=product&item=${encodeURIComponent(
+              prod.title.toLowerCase() + "-" + prod.id
+            )}`;
+            const img = `public/images/${prod.imageLink}`;
+            products_html += `
             <a class="card container space-between" href="${url}">
               <div class="img-div" style="background-image: url('${img}')">
                 <div class="flex space-between">
                   <button class="tag tag-left">${prod.catName}</button>
-                  <button class="tag tag-right flex">${prod.salesAmount}<i class='bx bxs-heart'></i></button>
+                  <button class="tag tag-right flex">${
+                    prod.salesAmount
+                  }<i class='bx bxs-heart'></i></button>
                 </div>
               </div>
               <div class="img-info">
@@ -139,12 +153,15 @@ function load_products(page_num, sort, filter) {
                 <button
                   class="add-cart-btn"
                   data-id="${prod.id}"
-                  data-title="${prod.title.replace(/"/g, '&quot;')}">
+                  data-title="${prod.title.replace(/"/g, "&quot;")}">
                   <i class='bx bx-cart-add'></i>
                 </button>
               </div>
             </a>`;
-        });
+          });
+        } else {
+          products_html = `<div class="empty" style="background-image: url('public/images/empty.jpg');">No item available</div>`;
+        }
 
         display.innerHTML = products_html;
         attachPaginationEvents();
@@ -174,7 +191,8 @@ function update_pagination(current, total) {
   if (current <= total && total !== 1) range.push(total);
 
   let html = "";
-  if (total > 1 && current > 1) html += `<button id="prev"><i class='bx bx-chevron-left'></i></button>`;
+  if (total > 1 && current > 1)
+    html += `<button id="prev"><i class='bx bx-chevron-left'></i></button>`;
   range.forEach((page) => {
     if (page === "...") {
       html += `<button disabled>...</button>`;
@@ -184,7 +202,8 @@ function update_pagination(current, total) {
       html += `<button data-page="${page}">${page}</button>`;
     }
   });
-  if (total > 1 && current < total) html += `<button id="next"><i class='bx bx-chevron-right'></i></button>`;
+  if (total > 1 && current < total)
+    html += `<button id="next"><i class='bx bx-chevron-right'></i></button>`;
   pagination.innerHTML = html;
   return current;
 }

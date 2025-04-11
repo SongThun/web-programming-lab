@@ -47,36 +47,34 @@ if (in_array($page, $valid_pages)) {
             $controller = new ProductController();
             if ($method === 'POST' && $action === 'none') {
                 $controller->load_products();
-            }
-            else if ($method === 'POST' && $action === 'add') {
+            } else if ($method === 'POST' && $action === 'add') {
                 $controller->add();
-            }
-            else if ($method === 'PUT' && $action == 'edit') {
+            } else if ($method === 'PUT' && $action == 'edit') {
                 $controller->edit();
-            }
-            else if ($method == "DELETE" && $action == 'delete') {
+            } else if ($method == "DELETE" && $action == 'delete') {
                 $controller->delete();
-            }
-            else if ($method == "GET" && $action == 'none') {
+            } else if ($method == "GET" && $action == 'none') {
                 $controller->get_hint();
             }
             break;
-        case 'cart': 
+        case 'cart':
             $controller = new UserController();
             if (isset($_GET['action']) && $_GET['action'] == 'checkout') {
                 $controller->checkout();
             } else if (isset($_GET['item'])) {
                 if ($role === 'user') {
                     $controller = new UserController();
-                    $controller->add_to_cart();
-                }
-                else {
-                    echo json_encode(["status"=>"fail", "msg" => "Please login to add to cart."]);
+                    if ($method == 'DELETE') {
+                        $controller->remove_from_cart();
+                    } else {
+                        $controller->add_to_cart();
+                    }
+                } else {
+                    echo json_encode(["status" => "fail", "msg" => "Please login to add to cart."]);
                 }
             }
             break;
         default:
             break;
     }
-} 
-
+}
