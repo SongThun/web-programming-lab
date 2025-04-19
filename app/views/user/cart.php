@@ -3,8 +3,8 @@
 <div id="cart-page" class="container container-inset">
     <div id="cart-display" class="grid-2 mb-2">
         <?php foreach ($items as $item): ?>
-            <a id=<?= "cart-" . $item['id'] ?>
-                href="<?= PRODUCT_URL . slugify($item["title"])?>-<?=$item["id"] ?>"
+            <a id="cart-<?= $item['id'] ?>"
+                href="<?= PRODUCT_URL . slugify($item["title"])?>-<?= $item["id"] ?>"
                 class="cart-item flex">
                 <img src="<?=IMAGE_PATH?><?=$item['imageLink'] ?>" alt="">
                 <div class="flex">
@@ -21,9 +21,9 @@
                         </div>
                     </div>
                 </div>
-            </a>
+            </>
         <?php endforeach; ?>
-    </div>
+    </>
     <?php if ($items != null and count($items) > 0): ?>
         <h2 class="mb-2">Total:
             <span id="checkout-total">$<?= array_sum(array_column($items, "total")) ?></span>
