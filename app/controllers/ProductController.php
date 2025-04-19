@@ -55,11 +55,11 @@ class ProductController
     }
     public function item()
     {
-        if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
+        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             $item_info = $_GET['item'];
-            // $item_split = explode("-", $item_info);
-            // $item_id = end($item_split);
-            $item_id = $_POST['id'];
+            $item_split = explode("-", $item_info);
+            $item_id = end($item_split);
+            // $item_id = $_POST['id'];
             
             $item = $this->model->get_item($item_id);
             $similar_items = $this->model->get_similar($item_id, 5);

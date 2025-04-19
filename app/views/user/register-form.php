@@ -111,7 +111,9 @@
             })
             .then(res => {
                 if (res.status === 'success') {
-                    window.location.href = window.BASE_URL;
+                    // window.location.href = window.BASE_URL;
+                    window.history.back();
+                    setTimeout(() => location.reload(), 100);
                 }
                 else {
                     registerError.innerHTML = "<i class='bx bx-error-circle me-1'></i> Username exists.";

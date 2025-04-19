@@ -55,6 +55,7 @@
                 .then(res => {
                     if (res.status === 'success') {
                         window.history.back();
+                        setTimeout(() => location.reload(), 100);
                     } else {
                         err.innerHTML = "<i class='bx bx-error-circle me-1'></i> Incorrect username or password";
                         document.querySelector("#password-input input").value = "";

@@ -70,7 +70,7 @@ class AuthController
     }
     public function logout()
     {
-        session_start();
+        // session_start();
         setcookie('remember_me', session_id(), time() - 60 * 60, '/');
         session_reset();
         session_destroy();
