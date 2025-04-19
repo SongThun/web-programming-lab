@@ -9,20 +9,7 @@ class ProductController
         $this->model = new ProductModel();
         $this->limit = 12;
     }
-    // public function index() {
-    //     // $title = isset($_POST['title']) ? $_POST['title'] : "";
-    //     $products = $this->model->get_products_by_date("", $this->limit);
-    //     $total = $this->model->get_total("");
-    //     $prices = array_column($products, "price");
-    //     $min_price = min($prices);
-    //     $max_price = max($prices);
-    //     if (isset($_POST['title']) and !empty($_POST['title'])) {
-    //         $products = $this->model->get_products_by_date($_POST['title'], $this->limit);
-    //     }
-    //     $categories = $this->model->get_categories();
-    //     $limit = $this->limit;
-    //     require __DIR__ . "/../views/user/product/product.php";
-    // }
+
     public function index()
     {
         $categories = $this->model->get_categories();
@@ -72,7 +59,7 @@ class ProductController
             $item_info = $_GET['item'];
             $item_split = explode("-", $item_info);
             $item_id = end($item_split);
-
+            
             $item = $this->model->get_item($item_id);
             $similar_items = $this->model->get_similar($item_id, 5);
             require __DIR__ . "/../views/user/product/item.php";

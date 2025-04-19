@@ -1,4 +1,4 @@
-<div class="flex center align-center mb-2">
+<div class="flex center align-center mb-2" id="sort-bar">
     <button class="me-2" id="filter-btn" style="display: none;"><i class='bx bx-filter'></i></button>
     <label class="me-2" for="sort">Sort by</label>
     <select name="sort" id="sort-select">
@@ -13,6 +13,7 @@
 <script>
     const filterBtn = document.querySelector("#filter-btn");
     const filterDiv = document.querySelector("#filter");
+
     function changeSort() {
         if (window.matchMedia("(max-width: 768px)").matches) {
             filterBtn.style.display = 'block';
@@ -27,4 +28,11 @@
     filterBtn.addEventListener('click', () => {
         filterDiv.classList.toggle('filter-collapsed');
     })
+    document.addEventListener('click', function(e) {
+        const isClickInside = filterDiv.contains(event.target) || filterBtn.contains(event.target);
+
+        if (!isClickInside && filterDiv.classList.contains('filter-collapsed')) {
+            filterDiv.classList.remove('filter-collapsed');
+        }
+    });
 </script>

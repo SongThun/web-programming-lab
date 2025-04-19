@@ -1,5 +1,5 @@
 <div id="about-page" class="container">
-    <div id="banner-title" style="background-image: url('public/images/bg-purple.jpg')">
+    <div id="banner-title" style="background-image: url('<?= IMAGE_PATH ?>bg-purple.jpg')">
         <span class="c-yellow">Welcome to Lorem Ipsum</span>
         <h1>Your Home, Your Story</h1>
     </div>
@@ -19,19 +19,19 @@
             <h1>Why choose Lorem Ipsum?</h1>
             <div class="flex space-between wrap">
                 <div class="card">
-                    <img src="public/images/quality.png" alt="">
+                    <img src="<?= IMAGE_PATH ?>quality.png" alt="">
                     <span class="mt-2">Handpicked, high-quality items</span>
                 </div>
                 <div class="card">
-                    <img src="public/images/luxury.png" alt="">
+                    <img src="<?= IMAGE_PATH ?>luxury.png" alt="">
                     <span class="mt-2">Affordable luxury</span>
                 </div>
                 <div class="card">
-                    <img src="public/images/secure.png" alt="">
+                    <img src="<?= IMAGE_PATH ?>secure.png" alt="">
                     <span class="mt-2">Fast & secure checkout</span>
                 </div>
                 <div class="card">
-                    <img src="public/images/shipping.png" alt="">
+                    <img src="<?= IMAGE_PATH ?>shipping.png" alt="">
                     <span class="mt-2">Nationwide shipping</span>
                 </div>
             </div>

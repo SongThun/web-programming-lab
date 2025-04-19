@@ -45,10 +45,6 @@ $max_price = ceil($prices['max_price']);
 
 <script>
 
-
-
-
-
     const sliderMin = document.getElementById('price-min');
     const sliderMax = document.getElementById('price-max');
     const minDisplay = document.getElementById('min-price-display');
@@ -56,8 +52,8 @@ $max_price = ceil($prices['max_price']);
     const sliderTrack = document.querySelector('.slider-track');
     const sliderRunnableTrack = document.querySelector('.slider-runnable-track')
     // Initialize displayed values on page load
-    minDisplay.textContent = sliderMin.value;
-    maxDisplay.textContent = sliderMax.value;
+    minDisplay.textContent = '$' + sliderMin.value;
+    maxDisplay.textContent = '$' + sliderMax.value;
 
     // Ensure min value can't go above max and vice versa
     sliderMin.addEventListener('input', () => {
@@ -88,7 +84,7 @@ $max_price = ceil($prices['max_price']);
         sliderRunnableTrack.style.width = (rightPercent - leftPercent) + '%';
 
         // Update the display
-        minDisplay.textContent = min;
-        maxDisplay.textContent = max;
+        minDisplay.textContent = '$' + min;
+        maxDisplay.textContent = '$' + max;
     }
 </script>

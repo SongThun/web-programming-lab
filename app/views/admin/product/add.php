@@ -1,5 +1,5 @@
 <div class="container-inset">
-    <a class="flex" href="admin.php?page=product"><i class='bx bx-arrow-back me-2'></i>back</a>
+    <a class="flex" href="<?= ADMIN_URL . 'product/' ?>"><i class='bx bx-arrow-back me-2'></i>back</a>
     <div class="container">
         <h1 class="title mb-2">Add product</h1>
         <fieldset class="form-fieldset">
@@ -61,7 +61,7 @@
     </div>
 </div>
 
-<script src="public/js/crud.js"></script>
+<script src="<?= SCRIPT_PATH ?>crud.js"></script>
 <script>
     handle_image();
 
@@ -104,7 +104,7 @@
         if (confirm(`Are you sure you want to delete ${name}?`)) {
             const result = await delete_record('product', id);
             if (result.status === 'success') {
-                window.location.href = "admin.php?page=product";
+                window.location.href = "<?= ADMIN_URL . 'product/'?>";
             } else {
                 alert("Fail to delete: " + result.msg);
             }

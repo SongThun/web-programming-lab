@@ -47,7 +47,7 @@ class UserModel {
         }
     }
     public function get_cart($userid) {
-        $sql = "SELECT c.amount, p.id, p.title, p.price, (p.price * c.amount) AS total, p.imageLink
+        $sql = "SELECT c.amount, p.id, p.title, p.price, p.discount, ROUND(p.price * (1 - p.discount) * c.amount, 2) AS total, p.imageLink
                 FROM cart c 
                 JOIN products p ON c.productID = p.id 
                 WHERE c.userID = ?";

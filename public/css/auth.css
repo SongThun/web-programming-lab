@@ -17,6 +17,9 @@
     justify-content: center;
     text-align: center;
 }
+.auth-display .logo {
+    height: 6ex;
+}
 .auth-display h1{
     font-size: 6ex;
     font-weight: bold;
@@ -56,7 +59,8 @@
     .auth-display {
         background-color: var(--snow);
         margin: 0 10%;
-        height: 60%;
+        min-height: min-content;
+        max-height: 85%;
         border-radius: var(--r)
     }
 }

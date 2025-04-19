@@ -37,8 +37,6 @@ ul li {
     font-weight: bold;
 }
 
-
-
 .vnav {
     display: flex;
     flex-direction: column;
@@ -76,7 +74,7 @@ ul li {
         position: absolute !important;
         flex-direction: column;
         align-items: start;
-        top: calc(2vw + 2ex);
+        top: 3rem;
         left: 0;
         width: 100%;
         background-color: var(--snow); 

@@ -37,41 +37,6 @@ class ProductModel
         $categories = $result->fetch_all(MYSQLI_ASSOC);
         return $categories;
     }
-    // public function get_products_by_name($title, $limit) {
-    //     $sql = "SELECT p.*, c.catName 
-    //         FROM products p
-    //         JOIN categories c ON p.catID = c.catID
-    //         WHERE p.title LIKE ?
-    //         ORDER BY createdDate DESC
-    //         LIMIT ? ";
-    //     $stmt = $this->db->prepare($sql);
-    //     $regex = "%$title%";
-    //     $stmt->bind_param("s", $regex);
-    //     $stmt->execute();
-    //     $result = $stmt->get_result();
-    //     return $result->fetch_all(MYSQLI_ASSOC);
-    // }
-    // public function get_products_by_date($title, $limit)
-    // {
-    //     $sql = "SELECT p.*, c.catName 
-    //         FROM products p
-    //         JOIN categories c ON p.catID = c.catID WHERE 1=1";
-    //     $params = [];
-    //     $type = "";
-    //     if (!empty($title)) {
-    //         $sql .= " AND p.title LIKE ?";
-    //         $params = [""]
-    //     }
-    //     $sql .= " ORDER BY createdDate DESC
-    //             LIMIT ?";
-
-    //     $regex = "%$title%";
-    //     $stmt = $this->db->prepare($sql);
-    //     $stmt->bind_param();
-    //     $stmt->execute();
-    //     $result = $stmt->get_result();
-    //     return $result->fetch_all(MYSQLI_ASSOC);
-    // }
     public function get_products($sort, $filter, $limit, $offset)
     {
         $sort_key = $sort['by'];

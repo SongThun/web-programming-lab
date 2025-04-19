@@ -34,7 +34,7 @@
                     <?php foreach ($products as $prod): ?>
                         <tr>
                             <td><?= $prod["id"] ?></td>
-                            <td><a class="info-group" href=<?= "admin.php?page=product&action=view&item=" . $prod['id'] ?>>
+                            <td><a class="info-group" href=<?= ADMIN_URL . 'product/view/' . $prod['id'] ?>>
                                     <small><?= $prod["catName"] ?></small>
                                     <h3><?= $prod["title"] ?></h3>
                                 </a></td>
@@ -42,7 +42,7 @@
                             <td><?= $prod["salesAmount"] ?></td>
                             <td><?= $prod["inStock"] ?></td>
                             <td><?= $prod["discount"] * 100 ?>%</td>
-                            <td><img src=<?= "public/images/" . $prod["imageLink"] ?> alt=<?= $prod['title'] ?>></td>
+                            <td><img src="<?= IMAGE_PATH ?><?= $prod["imageLink"] ?>" alt=<?= $prod['title'] ?>></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -51,7 +51,7 @@
     </div>
 </div>
 
-<script src="public/js/admin_products.js"></script>
+<script type="module" src="<?= SCRIPT_PATH ?>admin_products.js"></script>
 
 <script>
     const sideBtn = document.createElement('button');
@@ -96,6 +96,6 @@
     })
 
     addBtn.addEventListener('click', () => {
-        window.location.href = "admin.php?page=product&action=add";
+        window.location.href = "<?= ADMIN_URL . 'product/add/'?>";
     })
 </script>

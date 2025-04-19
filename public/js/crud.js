@@ -23,7 +23,7 @@ function form2json(element) {
 }
 
 async function add_record(page, body) {
-  const url = `api.php?page=${page}&action=add`;
+  const url = `${window.API}${page}/add`;
   let result = {};
 
   try {
@@ -48,7 +48,7 @@ async function add_record(page, body) {
 }
 
 async function edit_record(page, id, body) {
-  const url = `api.php?page=${page}&action=edit&item=${id}`;
+  const url = `${window.API}${page}/edit/${id}`;
   let result = {};
 
   try {
@@ -73,7 +73,7 @@ async function edit_record(page, id, body) {
 }
 
 async function delete_record(page, id) {
-  const url = `api.php?page=${page}&action=delete&item=${id}`;
+  const url = `${window.BASE_URL}/${page}/delete/${id}`;
   try {
     const response = await fetch(url, {
       method: "DELETE",

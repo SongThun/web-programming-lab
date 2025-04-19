@@ -1,5 +1,5 @@
 <div class="container-inset">
-    <a class="flex" href="admin.php?page=product"><i class='bx bx-arrow-back me-2'></i>back</a>
+    <a class="flex" href="<?= ADMIN_URL . 'product/'?>"><i class='bx bx-arrow-back me-2'></i>back</a>
     <div class="container">
         <h1 class="title mb-2">View product</h1>
         <fieldset class="form-fieldset" disabled>
@@ -50,7 +50,7 @@
                     <label class="image-upload-input" for="imageLink">Choose file</label>
                     <input id="imageLink" name="imageLink" type="file" accept=".png,.jpg,.jpeg">
                     <div class="image-preview">
-                        <img id="image_preview" src=<?= "public/images/" . $prod["imageLink"] ?> alt=<?= $prod['title'] ?>>
+                        <img id="image_preview" src="<?= IMAGE_PATH . $prod["imageLink"] ?>" alt="<?= $prod['title'] ?>">
                     </div>
                 </div>
                 <button style="display: none" class="submit-btn" type="submit" value=<?= $prod["id"] ?>>Submit</button>
@@ -64,7 +64,7 @@
     
 </div>
 
-<script src="public/js/crud.js"></script>
+<script src="<?= SCRIPT_PATH ?>crud.js"></script>
 <script>
     handle_image();
 
@@ -103,7 +103,7 @@
         if (confirm(`Are you sure you want to delete ${name}?`)) {
             const result = await delete_record('product', id);
             if (result.status === 'success') {
-                window.location.href = "admin.php?page=product";
+                window.location.href = "<?= ADMIN_URL . 'product/' ?>";
             } else {
                 alert("Fail to delete: " + result.msg);
             }

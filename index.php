@@ -3,14 +3,17 @@ require_once __DIR__ . '/app/controllers/HomeController.php';
 require_once __DIR__ . '/app/controllers/ProductController.php';
 require_once __DIR__ . '/app/controllers/AuthController.php';
 require_once __DIR__ . '/app/controllers/UserController.php';
+require_once __DIR__ . '/config.php';
+?>
 
+<?php
 session_start();
 
 $page = isset($_GET['page']) ? $_GET['page'] : 'home';
 $role = isset($_SESSION['role']) ? $_SESSION['role'] : 'guest';
 
 if ($role === 'admin' && !in_array($page, ["", 'logout', 'login', 'register'])) {
-    header("Location: admin.php");
+    header("Location: " . BASE_URL . 'admin/');
     exit();
 }
 
@@ -29,7 +32,7 @@ $user_controller = new UserController();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="public/css/index.css">
+    <link rel="stylesheet" href="<?= STYLE_PATH ?>">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
@@ -39,6 +42,14 @@ $user_controller = new UserController();
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <!-- SweetAlert2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        const BASE_URL = "<?= rtrim($baseUrl, '/') ?>";
+        window.BASE_URL = BASE_URL;
+        window.API = "<?= API ?>";
+    </script>
+    <script type="module" src="<?= $baseUrl ?>public/js/config.js"></script>
+
     <title>Lorem ipsum</title>
 </head>
 
@@ -84,6 +95,7 @@ $user_controller = new UserController();
     <?php
     include "app/views/include/footer.php";
     ?>
+
 </body>
 
 </html>

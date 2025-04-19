@@ -27,13 +27,6 @@
     font-size: 3ex;
 }
 
-.item-display .old-text {
-    color: rgb(199, 199, 199);
-    text-decoration: line-through;
-}
-.item-display .new-text {
-    color: var(--earth-yellow);
-}
 
 .item-display #item-amount {
     width: 50px;

@@ -1,14 +1,17 @@
+<?php include "app/utils.php" ?>
+
 <div id="cart-page" class="container container-inset">
     <div id="cart-display" class="grid-2 mb-2">
         <?php foreach ($items as $item): ?>
             <a id=<?= "cart-" . $item['id'] ?>
-                href="<?= "index.php?page=product&item=" . urlencode(strtolower($item["title"])) . "-" . $item["id"]; ?>"
+                href="<?= PRODUCT_URL . slugify($item["title"])?>-<?=$item["id"] ?>"
                 class="cart-item flex">
-                <img src=<?= "public/images/" . $item['imageLink'] ?> alt="">
+                <img src="<?=IMAGE_PATH?><?=$item['imageLink'] ?>" alt="">
                 <div class="flex">
                     <div class="cart-info">
                         <h2><?= $item['title'] ?></h2>
-                        <span>$<?= $item['price'] ?></span>
+                        <!-- <span>$<?= $item['price'] ?></span> -->
+                         <?php getDiscount($item) ?>
                     </div>
                     <div class="container align-right div-sm space-between">
                         <button  data-id=<?= $item['id'] ?> class="delete-btn btn-transparent" style="font-size: 3ex;"><i  data-id=<?= $item['id']?> class='bx bx-trash'></i></button>
@@ -27,45 +30,49 @@
         </h2>
         <button id="checkout-btn">Check out</button>
     <?php else: ?>
-        <div class="empty" style="background-image: url('public/images/empty.jpg');">No items in cart yet. Enjoy your shopping</div>
+        <div class="empty" style="background-image: url('<?= IMAGE_PATH ?>empty.jpg');">No items in cart yet. Enjoy your shopping</div>
     <?php endif; ?>
 </div>
 
-<script>
+<script type="module">
+    import {slugify} from "<?= SCRIPT_PATH ?>config.js"
     const btn = document.querySelector('#checkout-btn');
-    btn.addEventListener('click', async (e) => {
-        e.preventDefault();
-        const result = await Swal.fire({
-            text: `Are you sure you want to checkout?`,
-            icon: 'question',
-            showConfirmButton: true
-        })
-        if (result.isConfirmed) {
-            try {
-                const response = await fetch("api.php?page=cart&action=checkout")
-                const res = await response.json();
-                if (res['status'] == 'success') {
-                    const _ = await Swal.fire({
-                        toast: true,
-                        position: 'top',
-                        text: "Successfully checkout! \n Continue shopping!",
-                        icon: 'success',
-                        showConfirmButton: false,
-                        timerProgressBar: true,
-                        timer: 1200
-                    })
-                    window.location.href = "index.php";
+    if (btn) {
+        btn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            const result = await Swal.fire({
+                text: `Are you sure you want to checkout?`,
+                icon: 'question',
+                showConfirmButton: true
+            })
+            if (result.isConfirmed) {
+                try {
+                    const response = await fetch(`${window.API}cart/checkout`)
+                    const res = await response.json();
+                    if (res['status'] == 'success') {
+                        const _ = await Swal.fire({
+                            toast: true,
+                            position: 'top',
+                            text: "Successfully checkout! \n Continue shopping!",
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timerProgressBar: true,
+                            timer: 1200
+                        })
+                        window.location.href = window.BASE_URL;
+                    }
+                } catch (err) {
+                    console.log(err);
                 }
-            } catch (err) {
-                console.log(err);
             }
-        }
-    })
+        })
+    }
+    // import {slugify} from "public/js/config.js"
+
     async function updateCart(e) {
         e.preventDefault();
         e.stopPropagation();
-        const url = `api.php?page=cart&item=${e.target.dataset.id}`;
-        console.log(e.target);
+        const url = `${window.API}cart/${e.target.dataset.id}`;
         const cartDisplay = document.querySelector('#cart-display');
         const cartPage = document.querySelector('#cart-page');
         try {
@@ -74,14 +81,13 @@
             });
             const result = await response.json();
             if (result['status'] === 'success') {
-                html = "";
+                let html = "";
                 if (result["data"].length > 0) {
                     result["data"].forEach((item) => {
                         html += `<a id="cart-${item.id}" 
-                                        href="index.php?page=product&item=${encodeURIComponent(
-                                        item.title.toLowerCase() + "-" + item.id)}"
+                                        href="<?= PRODUCT_URL ?>${slugify(item.title)}-${item.id}"
                                         class = "cart-item flex" >
-                            <img src="public/images/${item.imageLink}" alt = "" >
+                            <img src="<?= IMAGE_PATH ?>${item.imageLink}" alt = "" >
                                 <div class = "flex" >
                                 <div class = "cart-info" >
                                     <h2>${item.title}</h2> 
@@ -102,7 +108,8 @@
                     })
                     cartDisplay.innerHTML = html;
                 } else {
-                    cartPage.innerHTML = `<div class="empty" style="background-image: url('public/images/empty.jpg');">
+                    <?php $img = IMAGE_PATH . "empty.jpg" ?>
+                    cartPage.innerHTML = `<div class="empty" style="background-image: url('<?= $img ?>');">
                         No items in cart yet. Enjoy your shopping
                         </div>`;
                 }

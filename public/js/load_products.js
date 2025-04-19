@@ -1,3 +1,6 @@
+import { debounce, slugify } from "./config.js"
+import { IMAGE_PATH } from "./config.js";
+
 const display = document.querySelector("#product-display");
 const pagination = document.querySelector("#pagination-bar");
 const categories = document.querySelector("#categories-list");
@@ -18,20 +21,14 @@ let filter = {
   price_range: [priceMin.value, priceMax.value],
 };
 
-function debounce(fn, delay = 500) {
-  let timeout;
-  return (...args) => {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => fn.apply(this, args), delay);
-  };
-}
+
 
 document.querySelector("#select-all").addEventListener("click", () => {
   filter.categories = all_cats;
   categories.querySelectorAll("button").forEach((ele) => {
     ele.classList.add("btn-active");
   });
-  debounce(() => load_products(1, sort, filter), 500);
+  debounce(load_products, 500)(1, sort, filter);
 });
 
 document.querySelector("#remove-all").addEventListener("click", () => {
@@ -39,7 +36,7 @@ document.querySelector("#remove-all").addEventListener("click", () => {
   categories.querySelectorAll("button").forEach((ele) => {
     ele.classList.remove("btn-active");
   });
-  debounce(() => load_products(1, sort, filter), 500);
+  debounce(load_products, 500)(1, sort, filter);
 });
 
 // Update categories filter
@@ -118,7 +115,7 @@ function bindAddToCart() {
 
 // Function to load products
 function load_products(page_num, sort, filter) {
-  fetch("api.php?page=product", {
+  fetch(`${window.API}product`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ sort, filter, page_num }),
@@ -131,10 +128,8 @@ function load_products(page_num, sort, filter) {
         let products_html = "";
         if (res["data"].length > 0) {
           res["data"].forEach((prod) => {
-            const url = `index.php?page=product&item=${encodeURIComponent(
-              prod.title.toLowerCase() + "-" + prod.id
-            )}`;
-            const img = `public/images/${prod.imageLink}`;
+            const url = `${window.BASE_URL}/product/${slugify(prod.title) + "-" + prod.id}`;
+            const img = IMAGE_PATH + prod.imageLink;
             products_html += `
             <a class="card container space-between" href="${url}">
               <div class="img-div" style="background-image: url('${img}')">
@@ -160,7 +155,8 @@ function load_products(page_num, sort, filter) {
             </a>`;
           });
         } else {
-          products_html = `<div class="empty" style="background-image: url('public/images/empty.jpg');">No item available</div>`;
+          let img = IMAGE_PATH + "empty.jpg";
+          products_html = `<div class="empty" style="background-image: url('${img}');">No item available</div>`;
         }
 
         display.innerHTML = products_html;

@@ -1,5 +1,6 @@
 <div class="auth-page">
     <div class="container auth-display">
+        <a href="<?= BASE_URL ?>" id="logo"><img class="logo" src="<?= IMAGE_PATH ?>logo.png" alt="lorem ipsum"></a>
         <h1>Welcome back!</h1>
         <form novalidate class="container" id="login-form" action="?page=login" method="POST">
             <div class="input-field" id="username-input">
@@ -9,18 +10,18 @@
             <div class="input-field" id="password-input">
                 <label for="password">Password</label>
                 <div class="input-wrap">
-                    <input class="input-hidden" type="password" required minlength="8">
-                    <img class="icon auth-icon me-2 ms-1" src="public/images/visibility_off.svg" data-id="password-input">
+                    <input class="input-hidden" type="password" required minlength="8" autocomplete="current-password">
+                    <img class="icon auth-icon me-2 ms-1" src="<?= IMAGE_PATH ?>visibility_off.svg" data-id="password-input">
                 </div>
             </div>
             <span class="err flex mt-1 c-red"></span>
             <button type="submit">Login</button>
         </form>
-        <span>Not a member? <a href="?page=register" class="c-iris">Register now</a></span>
+        <span>Not a member? <a href="<?=BASE_URL?>register/" class="c-iris">Register now</a></span>
     </div>
-    <div class="big-img" style="background-image: url('public/images/login-illustration.jpg')"></div>
+    <div class="big-img" style="background-image: url('<?= IMAGE_PATH ?>login-illustration.jpg')"></div>
 </div>
-<script src="public/js/auth.js"></script>
+<script src="<?= SCRIPT_PATH ?>auth.js"></script>
 <script>
     const login_form = document.getElementById('login-form');
 
@@ -34,7 +35,7 @@
         if (username == "" || password == "") {
             err.innerHTML = "<i class='bx bx-error-circle me-1'></i> All fields are required";
         } else {
-            fetch("api.php?page=login", {
+            fetch(`${window.API}login`, {
                     method: 'POST',
                     headers: {
                         "Content-Type": "application/json"
@@ -53,7 +54,7 @@
                 })
                 .then(res => {
                     if (res.status === 'success') {
-                        window.location.href = "index.php";
+                        window.history.back();
                     } else {
                         err.innerHTML = "<i class='bx bx-error-circle me-1'></i> Incorrect username or password";
                         document.querySelector("#password-input input").value = "";

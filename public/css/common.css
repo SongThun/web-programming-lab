@@ -252,6 +252,15 @@ input[type="range"]::-moz-range-thumb {
 .align-right {
   align-items: end;
 }
+
+.old-text {
+  color: rgb(199, 199, 199);
+  text-decoration: line-through;
+}
+.new-text {
+  color: var(--earth-yellow);
+}
+
 .mobile-hidden {
   display: block;
 }

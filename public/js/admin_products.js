@@ -1,3 +1,6 @@
+import { debounce } from "./config.js"
+import { IMAGE_PATH } from "./config.js";
+
 const display = document.querySelector("#admin-product-display");
 const pagination = document.querySelector("#pagination");
 const categories = document.querySelectorAll("#filter-categories button");
@@ -18,16 +21,9 @@ let sort = {
   order: "DESC",
 };
 
-function debounce(fn, delay = 500) {
-  let timeout;
-  return (...args) => {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => fn.apply(this, args), delay);
-  };
-}
 
 function update_categories() {
-  active_btn = document.querySelector("#filter-categories .btn-active");
+  const active_btn = document.querySelector("#filter-categories .btn-active");
   if (active_btn.value === "all") {
     filter.categories = all_cats;
   } else {
@@ -82,7 +78,7 @@ sort_select.addEventListener("change", function () {
 search.addEventListener("input", update_search);
 
 function load_products(page_num, sort, filter) {
-  fetch("api.php?page=product", {
+  fetch(`${window.API}product`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -99,7 +95,7 @@ function load_products(page_num, sort, filter) {
         res["data"].forEach((prod) => {
           html += `<tr>
                         <td>${prod["id"]}</td>
-                        <td><a class="info-group" href="admin.php?page=product&action=view&item=${prod['id']}">
+                        <td><a class="info-group" href="${window.BASE_URL}/admin/product/view/${prod['id']}">
                                 <small>${prod["catName"]}</small>
                                 <h3>${prod["title"]}</h3>
                             </a></td>
@@ -107,7 +103,7 @@ function load_products(page_num, sort, filter) {
                         <td>${prod["salesAmount"]}</td>
                         <td>${prod["inStock"]}</td>
                         <td>${prod["discount"] * 100}\%</td>
-                        <td><img src="public/images/${prod["imageLink"]}" alt=${prod['title']}></td>
+                        <td><img src="${IMAGE_PATH+prod["imageLink"]}" alt=${prod['title']}></td>
                     </tr>`;
         });
         display.innerHTML = html;
@@ -117,7 +113,7 @@ function load_products(page_num, sort, filter) {
 }
 
 function update_pagination(current, total) {
-  html = "";
+  let html = "";
   if (total > 1 && current > 1) {
     html += '<button id="prev">&lt;</button>';
   }

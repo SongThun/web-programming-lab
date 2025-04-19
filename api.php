@@ -28,7 +28,6 @@ $valid_pages = ['home', 'product', 'about', 'login', 'register', 'cart']; // Add
 if (in_array($page, $valid_pages)) {
     switch ($page) {
         case 'home':
-            // Handle home page logic (can be left for HTML rendering if needed)
             break;
         case 'login':
             $controller = new AuthController();

@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . "/config.php";
+require_once __DIR__ . "/app/controllers/AdminController.php";
 session_start();
 
 $role = isset($_SESSION['role']) ? $_SESSION['role'] : 'guest';
@@ -6,15 +8,14 @@ if ($role === 'user') {
     echo "Unauthorized access.";
     exit();
 } else if ($role === 'guest') {
-    echo "Unauthroized access. Please ";
-    echo '<a href="?page=login">login.</a>';
+    echo "Unauthorized access. Please ";
+    echo '<a href="' . BASE_URL . '/login/">login.</a>';
     exit();
 }
 
 $page = isset($_GET['page']) ? $_GET['page'] : 'home';
 $valid_pages = ['home', 'product', 'login', 'register', 'logout'];
 
-require_once "app/controllers/AdminController.php";
 $controller = new AdminController();
 ?>
 
@@ -24,12 +25,18 @@ $controller = new AdminController();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="public/css/index.css">
+    <link rel="stylesheet" href="<?= STYLE_PATH ?>">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <!-- SweetAlert2 CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <!-- SweetAlert2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        const BASE_URL = "<?= rtrim($baseUrl, '/') ?>";
+        window.BASE_URL = BASE_URL;
+        window.API = "<?= API ?>";
+    </script>
+    <script type="module" src="<?= $baseUrl ?>public/js/config.js"></script>
     <title>Lorem ipsum Admin</title>
 </head>
 

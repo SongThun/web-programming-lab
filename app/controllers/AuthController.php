@@ -74,7 +74,7 @@ class AuthController
         setcookie('remember_me', session_id(), time() - 60 * 60, '/');
         session_reset();
         session_destroy();
-        header("Location: index.php");  // Redirect to homepage
+        header("Location: " . BASE_URL);  // Redirect to homepage
         exit();
     }
 }

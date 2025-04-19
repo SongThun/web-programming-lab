@@ -1,5 +1,52 @@
 RewriteEngine On
 
-RewriteCond %{REQUEST_FILENAME} !-f  # not a real file
-RewriteCond %{REQUEST_FILENAME} !-d  # not a real directory
-RewriteRule ^product/
+# -----------------------
+# API routes (no trailing slash redirect)
+# -----------------------
+RewriteRule ^api/login$ api.php?page=login [L,QSA]
+RewriteRule ^api/register$ api.php?page=register [L,QSA]
+RewriteRule ^api/product/add$ api.php?page=product&action=add [L,QSA]
+RewriteRule ^api/product/(edit|delete)/([0-9]+)$ api.php?page=product&action=$1&item=$2 [L,QSA]
+RewriteRule ^api/product$ api.php?page=product [L,QSA]
+RewriteRule ^api/cart/checkout$ api.php?page=cart&action=checkout [L,QSA]
+RewriteRule ^api/cart/([0-9]+)$ api.php?page=cart&item=$1 [L,QSA]
+
+# -----------------------
+# Admin routes
+# -----------------------
+RewriteRule ^admin/product/add/$ admin.php?page=product&action=add [L,QSA]
+RewriteRule ^admin/product/view/([a-zA-Z0-9-]+)$ admin.php?page=product&action=view&item=$1 [L,QSA]
+RewriteRule ^admin/product/$ admin.php?page=product [L,QSA]
+RewriteRule ^admin/$ admin.php [L,QSA]
+RewriteRule ^admin/(.*)$ admin.php [L,QSA]
+
+# -----------------------
+# Public routes
+# -----------------------
+RewriteRule ^product/category/([a-zA-Z0-9-]+)/$ index.php?page=product&category=$1 [L,QSA]
+RewriteRule ^product/([a-zA-Z0-9-]+)/$ index.php?page=product&item=$1 [L,QSA]
+RewriteRule ^product/$ index.php?page=product [L,QSA]
+RewriteRule ^home/$ index.php?page=home [L,QSA]
+RewriteRule ^cart/$ index.php?page=cart [L,QSA]
+RewriteRule ^login/$ index.php?page=login [L,QSA]
+RewriteRule ^register/$ index.php?page=register [L,QSA]
+RewriteRule ^logout/$ index.php?page=logout [L,QSA]
+RewriteRule ^about/$ index.php?page=about [L,QSA]
+
+# ----------------------------
+# Trailing slash redirection
+# ----------------------------
+
+# Skip real files or directories
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Skip if URI has file extension
+RewriteCond %{REQUEST_URI} !\.[^./]+$
+
+# Skip API routes (anywhere in URI)
+RewriteCond %{REQUEST_URI} !/api/
+
+# Add trailing slash if missing
+RewriteCond %{REQUEST_URI} !/$
+RewriteRule ^(.*[^/])$ %{REQUEST_URI}/ [R=301,L]

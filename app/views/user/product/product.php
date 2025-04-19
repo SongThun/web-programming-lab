@@ -1,4 +1,5 @@
-<!-- index.php (or products.php) -->
+<?php include "app/utils.php";?>
+
 <div class="grid-1-4 container-inset">
     <?php require __DIR__ . "/filter.php"; ?>
     <div class="container">
@@ -6,8 +7,8 @@
         <div id="product-display">
             <?php if ($products != null and count($products) > 0): ?>
                 <?php foreach ($products as $prod): ?>
-                    <a class="card container" href="<?= "index.php?page=product&item=" . urlencode(strtolower($prod["title"])) . "-" . $prod["id"]; ?>">
-                        <div class="img-div" style="background-image: url('public/images/<?= $prod["imageLink"] ?>')">
+                    <a class="card container" href="<?= PRODUCT_URL . slugify($prod["title"]) . "-" . $prod["id"]; ?>">
+                        <div class="img-div" style="background-image: url('<?= IMAGE_PATH . $prod["imageLink"] ?>')">
                             <div class="flex space-between">
                                 <button class="tag tag-left"><?= $prod["catName"] ?></button>
                                 <button class="tag tag-right flex"><?= $prod['salesAmount'] ?><i class='bx bxs-heart'></i></button>
@@ -16,7 +17,8 @@
                         <div class="img-info">
                             <span class="flex-column space-between">
                                 <h1><?= $prod["title"] ?></h1>
-                                <span>$<?= $prod["price"] ?></span>
+                                <!-- <span>$<?= $prod["price"] ?></span> -->
+                                 <?php getDiscount($prod) ?>
                             </span>
                             <button
                                 class="add-cart-btn"
@@ -28,7 +30,7 @@
                     </a>
                 <?php endforeach; ?>
             <?php else: ?>
-                <div class="empty" style="background-image: url('public/images/empty.jpg');">No item available</div>
+                <div class="empty" style="background-image: url('<?= IMAGE_PATH ?>empty.jpg');">No item available</div>
             <?php endif; ?>
         </div>
         <?php require __DIR__ . "/pagination.php"; ?>
@@ -36,13 +38,13 @@
 </div>
 
 
-<script src="public/js/load_products.js"></script>
+<script type="module" src="<?= SCRIPT_PATH ?>load_products.js"></script>
 <!-- Add to Cart Handler -->
 <script>
     async function addItem(id, title, e) {
         e.preventDefault(); // prevent <a> tag navigation
         e.stopImmediatePropagation(); // stop event bubbling
-        const response = await fetch(`api.php?page=cart&item=${id}&amount=1`);
+        const response = await fetch(`${window.API}cart/${id}?amount=1`);
         const res = await response.json();
         if (res["status"] === "success") {
             Swal.fire({
@@ -51,7 +53,7 @@
                 text: `${title} added to cart!`,
                 icon: 'success',
                 showConfirmButton: false,
-                timer: 1000,
+                timer: 1200,
                 timerProgressBar: true
             })
             // alert(`${title} added to cart!`);

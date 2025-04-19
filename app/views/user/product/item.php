@@ -1,10 +1,14 @@
+<?php include "app/utils.php" ?>
+
 <div class="container-inset">
     <div class="item-display mb-2">
         <!-- <div class=""> -->
-        <img class="item-img" src=<?= "public/images/" . $item['imageLink'] ?> alt="">
+        <img class="item-img" src=<?= IMAGE_PATH . $item['imageLink'] ?> alt="">
         <!-- </div> -->
         <div class="ms-2">
-            <a href="index.php?page=product&category=<?= urlencode($item['catName']) ?>-<?= $item['catID'] ?>"><?= $item['catName'] ?></a>
+            <a href="<?= PRODUCT_URL ?>category/<?= slugify($item['catName']) ?>-<?= $item['catID'] ?>">
+                <?= $item['catName'] ?>
+            </a>
             <h1><?= $item['title'] ?></h1>
             <?php if ($item['discount'] > 0): ?>
                 <span class="flex">
@@ -14,6 +18,7 @@
             <?php else: ?>
                 <h2>$<?= $item['price'] ?></h2>
             <?php endif; ?>
+            <!-- <?php getDiscount($item) ?> -->
             <p><?= $item["productDesc"] ?></p>
             <div class="flex align-center">
                 <label class="me-1" for="item-amount">Amount:</label>
@@ -27,13 +32,14 @@
         <div class="flex">
             <?php foreach ($similar_items as $sim): ?>
                 <a 
-                href="<?= "index.php?page=product&item=" . urlencode(strtolower($sim["title"])) . "-" . $sim["id"]; ?>" 
+                href="<?= PRODUCT_URL . slugify($sim["title"]) . "-" . $sim["id"]; ?>" 
                 class="card container align-flex-start space-between">
                     <div class="img-card">
-                        <img src=<?= "public/images/" . $sim["imageLink"] ?> alt="">
+                        <img src=<?= IMAGE_PATH . $sim["imageLink"] ?> alt="">
                         <h3 class="mt-2"><?= $sim['title'] ?></h3>
                     </div>
-                    <span>$<?= $sim['price'] ?></span>
+                    <!-- <span>$<?= $sim['price'] ?></span> -->
+                     <?php getDiscount($sim) ?>
                 </a>
             <?php endforeach; ?>
         </div>
@@ -42,17 +48,34 @@
 <script>
     document.querySelector("#add-cart-btn").addEventListener('click', (e) => {
         e.preventDefault();
-        let item_id = document.querySelector("#add-cart-btn").value;
+        // let item_id = document.querySelector("#add-cart-btn").value;
         let amount = document.querySelector("#item-amount").value;
 
-        let url = `api.php?page=cart&item=${item_id}&amount=${amount}`;
+        let url = `${window.API}cart/${<?=$item['id']?>}?amount=${amount}`;
         fetch(url)
             .then(response => response.json())
             .then(res => {
                 if (res["status"] == "success") {
-                    alert(`Add item to cart!`);
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        text: `<?=$item['title']?> added to cart!`,
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 1200,
+                        timerProgressBar: true
+                    })
                 } else {
-                    alert(`Please login to add item to cart`);
+                    Swal.fire({
+                        position: 'top',
+                        title: 'Login required',
+                        html: `Please <a href="${window.BASE_URL}/login/">Login</a> to add item to cart`,
+                        icon: 'error',
+                        height: '1rem',
+                        showConfirmButton: false,
+                        timer: 2400,
+                        timerProgressBar: true
+                    })
                 }
             })
             .catch(err => {

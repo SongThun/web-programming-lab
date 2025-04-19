@@ -4,7 +4,7 @@
 @import url("home.css");
 @import url("product.css");
 @import url("item.css");
-@import url('authorize.css');
+@import url('auth.css');
 @import url('cart.css');
 @import url('admin.css');
 @import url('about.css');
@@ -53,6 +53,7 @@ header {
     background-color: var(--snow);
     top: 0;
     padding: 0 2vw;
+    height: 3rem;
     position: sticky;
     width: 100%;
     display: grid;
@@ -77,7 +78,7 @@ h1, h2,h3 {
 }
 
 .logo {
-  height: 2ex;
+  height: 4ex;
   width: auto;
   aspect-ratio: auto;
 }
