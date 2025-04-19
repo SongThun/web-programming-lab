@@ -27,15 +27,24 @@ class AuthController
             $password = password_hash(trim($data["password"]), PASSWORD_DEFAULT);
             $email = trim($data['email']);
             $result = $this->model->add_user($username, $password, $email);
+            $res = [];
             if ($result["status"] == "success") {
                 $_SESSION['user_id'] = $result["data"]["userID"];
                 $_SESSION['username'] = $result["data"]["username"];
                 $_SESSION['role'] = $result["data"]["urole"];
                 setcookie('remember_me', session_id(), time() + (24 * 60 * 60), '/');
+                
+                $res = [
+                    "status" => "success",
+                    "role" => $result["data"]["urole"]
+                ];
+            }
+            else {
+                $res = $result;
             }
 
             header("Content-Type: application/json");
-            echo json_encode(["status"=>$result["status"]]);
+            echo json_encode($res);
             exit();
         }
     }
@@ -55,7 +64,8 @@ class AuthController
                 setcookie('remember_me', session_id(), time() + (24 * 60 * 60), '/');
 
                 $res = [
-                    "status" => "success"
+                    "status" => "success",
+                    "role" => $user["urole"]
                 ];
             } else {
                 $res = [

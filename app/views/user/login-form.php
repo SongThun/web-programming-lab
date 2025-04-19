@@ -17,7 +17,7 @@
             <span class="err flex mt-1 c-red"></span>
             <button type="submit">Login</button>
         </form>
-        <span>Not a member? <a href="<?=BASE_URL?>register/" class="c-iris">Register now</a></span>
+        <span>Not a member? <a href="<?= BASE_URL ?>register/" class="c-iris">Register now</a></span>
     </div>
     <div class="big-img" style="background-image: url('<?= IMAGE_PATH ?>login-illustration.jpg')"></div>
 </div>
@@ -54,8 +54,12 @@
                 })
                 .then(res => {
                     if (res.status === 'success') {
-                        window.history.back();
-                        setTimeout(() => location.reload(), 100);
+                        if (res.role === 'admin') {
+                            window.history.back();
+                            setTimeout(() => location.reload(), 100);
+                        } else {
+                            window.location.href = window.BASE_URL;
+                        }
                     } else {
                         err.innerHTML = "<i class='bx bx-error-circle me-1'></i> Incorrect username or password";
                         document.querySelector("#password-input input").value = "";

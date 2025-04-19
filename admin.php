@@ -5,11 +5,13 @@ session_start();
 
 $role = isset($_SESSION['role']) ? $_SESSION['role'] : 'guest';
 if ($role === 'user') {
-    echo "Unauthorized access.";
+    // echo "Unauthorized access.";
+    header("Location: " . BASE_URL . '404.php');
     exit();
 } else if ($role === 'guest') {
-    echo "Unauthorized access. Please ";
-    echo '<a href="' . BASE_URL . '/login/">login.</a>';
+    // echo "Unauthorized access. Please ";
+    // echo '<a href="' . BASE_URL . '/login/">login.</a>';
+    header("Location: " . BASE_URL . '404.php');
     exit();
 }
 

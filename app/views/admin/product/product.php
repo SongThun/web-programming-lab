@@ -57,9 +57,7 @@
     const sideBtn = document.createElement('button');
     sideBtn.innerHTML = "<i class='bx bx-menu-alt-left'></i>";
     sideBtn.id = "sidebar-btn";
-    document.body.appendChild(sideBtn);
-
-
+    
     const sidebar = document.querySelector(".sidebar");
     const addBtn = document.querySelector('#add-btn');
     const productUtils = document.querySelector("#product-utils");
@@ -96,6 +94,6 @@
     })
 
     addBtn.addEventListener('click', () => {
-        window.location.href = "<?= ADMIN_URL . 'product/add/'?>";
+        window.location.href = "<?= ADMIN_URL . 'product/add/' ?>";
     })
 </script>

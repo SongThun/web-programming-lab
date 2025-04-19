@@ -1,9 +1,11 @@
+<?php include __DIR__ . "/config.php" ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>404 Not Found</title>
+  <link rel="stylesheet" href="<?= STYLE_PATH ?>">
   <style>
     * {
       box-sizing: border-box;
@@ -12,9 +14,8 @@
     }
 
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f7f8fa;
-      color: #333;
+      background-color: var(--snow);
+      color: black;
       height: 100vh;
       display: flex;
       flex-direction: column;
@@ -26,7 +27,8 @@
 
     h1 {
       font-size: 5rem;
-      color: #ff4757;
+      font-weight: bold;
+      color: var(--iris);
       margin-bottom: 10px;
     }
 
@@ -37,8 +39,8 @@
 
     a {
       text-decoration: none;
-      background-color: #1e90ff;
-      color: white;
+      background-color: var(--earth-yellow);
+      color: black;
       padding: 12px 24px;
       border-radius: 6px;
       font-size: 1rem;
@@ -46,13 +48,14 @@
     }
 
     a:hover {
-      background-color: #0d6efd;
+      background-color: var(--tiffany-blue);
+      color: black;
     }
   </style>
 </head>
 <body>
   <h1>404</h1>
   <p>Oops! The page you are looking for doesn't exist.</p>
-  <a href="/">Back to Home</a>
+  <a href="<?= BASE_URL ?>">Back to Home</a>
 </body>
 </html>
