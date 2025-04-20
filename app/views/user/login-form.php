@@ -54,12 +54,7 @@
                 })
                 .then(res => {
                     if (res.status === 'success') {
-                        if (res.role === 'admin') {
-                            window.history.back();
-                            setTimeout(() => location.reload(), 100);
-                        } else {
-                            window.location.href = window.BASE_URL;
-                        }
+                        window.location.href = window.BASE_URL;
                     } else {
                         err.innerHTML = "<i class='bx bx-error-circle me-1'></i> Incorrect username or password";
                         document.querySelector("#password-input input").value = "";

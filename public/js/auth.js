@@ -8,10 +8,10 @@ authIcons.forEach((e) => {
 
         if (isInvisible) {
             input.type = 'text';
-            e.src = IMAGE_PATH + "visibility.svg";
+            e.src = window.BASE_URL  + "/public/images/visibility.svg";
         } else {
             input.type = 'password';
-            e.src = IMAGE_PATH + "visibility_off.svg";
+            e.src = window.BASE_URL + "/public/images/visibility_off.svg";
         }
     });
 });

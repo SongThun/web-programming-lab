@@ -73,7 +73,7 @@ async function edit_record(page, id, body) {
 }
 
 async function delete_record(page, id) {
-  const url = `${window.BASE_URL}/${page}/delete/${id}`;
+  const url = `${window.API}/${page}/delete/${id}`;
   try {
     const response = await fetch(url, {
       method: "DELETE",

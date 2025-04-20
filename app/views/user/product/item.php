@@ -1,15 +1,13 @@
-<?php include "app/utils.php" ?>
-
 <div class="container-inset">
     <div class="item-display mb-2">
         <!-- <div class=""> -->
-        <img class="item-img" src=<?= IMAGE_PATH . $item['imageLink'] ?> alt="">
+        <img class="item-img" src=<?= e(IMAGE_PATH . $item['imageLink']) ?> alt="">
         <!-- </div> -->
         <div class="ms-2">
-            <a href="<?= PRODUCT_URL ?>category/<?= slugify($item['catName']) ?>-<?= $item['catID'] ?>">
-                <?= $item['catName'] ?>
+            <a href="<?= e(PRODUCT_URL . "category/" . slugify($item['catName']) . "-" . $item['catID']) ?>">
+                <?= e($item['catName']) ?>
             </a>
-            <h1><?= $item['title'] ?></h1>
+            <h1><?= e($item['title']) ?></h1>
             <?php if ($item['discount'] > 0): ?>
                 <span class="flex">
                     <h2 class="old-text me-1">$<?= $item['price'] ?></h2>
@@ -19,7 +17,7 @@
                 <h2>$<?= $item['price'] ?></h2>
             <?php endif; ?>
             <!-- <?php getDiscount($item) ?> -->
-            <p><?= $item["productDesc"] ?></p>
+            <p><?= e($item["productDesc"]) ?></p>
             <div class="flex align-center">
                 <label class="me-1" for="item-amount">Amount:</label>
                 <input class="me-1" name="item-amount" id="item-amount" type="number" min="1" max=<?= $item['inStock'] ?> value="1">
@@ -32,11 +30,11 @@
         <div class="flex">
             <?php foreach ($similar_items as $sim): ?>
                 <a 
-                href="<?= PRODUCT_URL . slugify($sim["title"]) . "-" . $sim["id"]; ?>" 
+                href="<?= e(PRODUCT_URL . slugify($sim["title"]) . "-" . $sim["id"]) ?>" 
                 class="card container align-flex-start space-between">
                     <div class="img-card">
-                        <img src=<?= IMAGE_PATH . $sim["imageLink"] ?> alt="">
-                        <h3 class="mt-2"><?= $sim['title'] ?></h3>
+                        <img src=<?= e(IMAGE_PATH . $sim["imageLink"]) ?> alt="">
+                        <h3 class="mt-2"><?= e($sim['title']) ?></h3>
                     </div>
                     <!-- <span>$<?= $sim['price'] ?></span> -->
                      <?php getDiscount($sim) ?>

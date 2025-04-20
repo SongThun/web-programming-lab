@@ -1,9 +1,9 @@
-<div class="dynamic-nav" data-state=<?= isset($_SESSION['user_id']) ? 'login' : 'none' ?>>
+<div class="dynamic-nav" data-state="<?= isset($_SESSION['user_id']) ? 'login' : 'none' ?>">
     <ul class="hnav">
-        <li><a href="<?= BASE_URL ?>home/" class="<?= ($page === 'home') ? 'selected' : '' ?>">Home</a></li>
-        <li><a href="<?= BASE_URL ?>product/" class="<?= ($page === 'product') ? 'selected' : '' ?>">Product</a></li>
-        <li><a href="<?= BASE_URL ?>about/" class="<?= ($page === 'about') ? 'selected' : '' ?>">About</a></li>
-        <li id="logout-btn" style="display: none;"><a href="<?= BASE_URL ?>logout/">Logout</a></li>
+        <li><a href="<?= e(BASE_URL . 'home/') ?>" class="<?= ($page === 'home') ? 'selected' : '' ?>">Home</a></li>
+        <li><a href="<?= e(BASE_URL . 'product/') ?>" class="<?= ($page === 'product') ? 'selected' : '' ?>">Product</a></li>
+        <li><a href="<?= e(BASE_URL . 'about/') ?>" class="<?= ($page === 'about') ? 'selected' : '' ?>">About</a></li>
+        <li id="logout-btn" style="display: none;"><a href="<?= e(BASE_URL . 'logout/') ?>">Logout</a></li>
     </ul>
 </div>
 

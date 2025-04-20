@@ -1,41 +1,44 @@
-<?php include "app/utils.php" ?>
-
 <div id="cart-page" class="container container-inset">
     <div id="cart-display" class="grid-2 mb-2">
         <?php foreach ($items as $item): ?>
-            <a id="cart-<?= $item['id'] ?>"
-                href="<?= PRODUCT_URL . slugify($item["title"])?>-<?= $item["id"] ?>"
+            <a id="<?= e('cart-' . $item['id']) ?>"
+                href="<?= e(PRODUCT_URL . slugify($item["title"]) . '-' . $item["id"]) ?>"
                 class="cart-item flex">
-                <img src="<?=IMAGE_PATH?><?=$item['imageLink'] ?>" alt="">
+                <img src="<?= e(IMAGE_PATH . $item['imageLink']) ?>" alt="">
                 <div class="flex">
                     <div class="cart-info">
-                        <h2><?= $item['title'] ?></h2>
-                        <!-- <span>$<?= $item['price'] ?></span> -->
-                         <?php getDiscount($item) ?>
+                        <h2><?= e($item['title']) ?></h2>
+                        <!-- <span>$<?= e($item['price']) ?></span> -->
+                        <?php getDiscount($item) ?>
                     </div>
                     <div class="container align-right div-sm space-between">
-                        <button  data-id=<?= $item['id'] ?> class="delete-btn btn-transparent" style="font-size: 3ex;"><i  data-id=<?= $item['id']?> class='bx bx-trash'></i></button>
+                        <button data-id="<?= e($item['id']) ?>" class="delete-btn btn-transparent" style="font-size: 3ex;">
+                            <i data-id="<?= e($item['id']) ?>" class='bx bx-trash'></i>
+                        </button>
                         <div class="container right align-right">
-                            <span>Amount: <?= $item['amount'] ?></span>
-                            <h3 class="item-total">$<?= $item['total'] ?></h3>
+                            <span>Amount: <?= e($item['amount']) ?></span>
+                            <h3 class="item-total">$<?= e($item['total']) ?></h3>
                         </div>
                     </div>
                 </div>
-            </>
+            </a>
         <?php endforeach; ?>
-    </>
-    <?php if ($items != null and count($items) > 0): ?>
+    </div>
+    <?php if ($items != null && count($items) > 0): ?>
         <h2 class="mb-2">Total:
-            <span id="checkout-total">$<?= array_sum(array_column($items, "total")) ?></span>
+            <span id="checkout-total">$<?= e(array_sum(array_column($items, "total"))) ?></span>
         </h2>
         <button id="checkout-btn">Check out</button>
     <?php else: ?>
-        <div class="empty" style="background-image: url('<?= IMAGE_PATH ?>empty.jpg');">No items in cart yet. Enjoy your shopping</div>
+        <div class="empty" style="background-image: url('<?= e(IMAGE_PATH . 'empty.jpg') ?>');">
+            No items in cart yet. Enjoy your shopping
+        </div>
     <?php endif; ?>
 </div>
 
 <script type="module">
-    import {slugify} from "<?= SCRIPT_PATH ?>config.js"
+    import { slugify } from "<?= e(SCRIPT_PATH . "config.js") ?>"
+
     const btn = document.querySelector('#checkout-btn');
     if (btn) {
         btn.addEventListener('click', async (e) => {
@@ -67,7 +70,6 @@
             }
         })
     }
-    // import {slugify} from "public/js/config.js"
 
     async function updateCart(e) {
         e.preventDefault();
@@ -85,9 +87,9 @@
                 if (result["data"].length > 0) {
                     result["data"].forEach((item) => {
                         html += `<a id="cart-${item.id}" 
-                                        href="<?= PRODUCT_URL ?>${slugify(item.title)}-${item.id}"
+                                        href="<?= e(PRODUCT_URL) ?>${slugify(item.title)}-${item.id}"
                                         class = "cart-item flex" >
-                            <img src="<?= IMAGE_PATH ?>${item.imageLink}" alt = "" >
+                            <img src="<?= e(IMAGE_PATH) ?>${item.imageLink}" alt = "" >
                                 <div class = "flex" >
                                 <div class = "cart-info" >
                                     <h2>${item.title}</h2> 

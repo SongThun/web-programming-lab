@@ -8,7 +8,7 @@
             <div id="filter-categories">
                 <button value="all" class="btn-active">All</button>
                 <?php foreach ($categories as $cat): ?>
-                    <button value=<?= $cat['catID'] ?>><?= $cat['catName'] ?></button>
+                    <button value=<?= e($cat['catID']) ?>><?= e($cat['catName']) ?></button>
                 <?php endforeach; ?>
             </div>
         </div>
@@ -33,16 +33,20 @@
                 <tbody id="admin-product-display">
                     <?php foreach ($products as $prod): ?>
                         <tr>
-                            <td><?= $prod["id"] ?></td>
-                            <td><a class="info-group" href=<?= ADMIN_URL . 'product/view/' . $prod['id'] ?>>
-                                    <small><?= $prod["catName"] ?></small>
-                                    <h3><?= $prod["title"] ?></h3>
-                                </a></td>
-                            <td>$<?= $prod["price"] ?></td>
-                            <td><?= $prod["salesAmount"] ?></td>
-                            <td><?= $prod["inStock"] ?></td>
-                            <td><?= $prod["discount"] * 100 ?>%</td>
-                            <td><img src="<?= IMAGE_PATH ?><?= $prod["imageLink"] ?>" alt=<?= $prod['title'] ?>></td>
+                            <td><?= e($prod["id"]) ?></td>
+                            <td>
+                                <a class="info-group" href="<?= e(ADMIN_URL . 'product/view/' . $prod['id']) ?>">
+                                    <small><?= e($prod["catName"]) ?></small>
+                                    <h3><?= e($prod["title"]) ?></h3>
+                                </a>
+                            </td>
+                            <td>$<?= e($prod["price"]) ?></td>
+                            <td><?= e($prod["salesAmount"]) ?></td>
+                            <td><?= e($prod["inStock"]) ?></td>
+                            <td><?= e($prod["discount"] * 100) ?>%</td>
+                            <td>
+                                <img src="<?= e(IMAGE_PATH . $prod["imageLink"]) ?>" alt="<?= e($prod['title']) ?>">
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -57,7 +61,7 @@
     const sideBtn = document.createElement('button');
     sideBtn.innerHTML = "<i class='bx bx-menu-alt-left'></i>";
     sideBtn.id = "sidebar-btn";
-    
+
     const sidebar = document.querySelector(".sidebar");
     const addBtn = document.querySelector('#add-btn');
     const productUtils = document.querySelector("#product-utils");
@@ -94,6 +98,6 @@
     })
 
     addBtn.addEventListener('click', () => {
-        window.location.href = "<?= ADMIN_URL . 'product/add/' ?>";
+        window.location.href = "<?= e(ADMIN_URL . 'product/add/' )?>";
     })
 </script>

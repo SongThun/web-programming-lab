@@ -1,6 +1,6 @@
 <div class="auth-page">
     <div class="container auth-display">
-        <a href="<?= BASE_URL ?>" id="logo"><img class="logo" src="<?= IMAGE_PATH ?>logo.png" alt="lorem ipsum"></a>
+        <a href="<?= e(BASE_URL) ?>" id="logo"><img class="logo" src="<?= e(IMAGE_PATH . "logo.png") ?>" alt="lorem ipsum"></a>
         <h1>Create an account</h1>
         <form novalidate class="container" id="register-form" action="?page=login" method="POST">
             <div class="input-field" id="email-input">
@@ -111,9 +111,9 @@
             })
             .then(res => {
                 if (res.status === 'success') {
-                    // window.location.href = window.BASE_URL;
-                    window.history.back();
-                    setTimeout(() => location.reload(), 100);
+                    window.location.href = window.BASE_URL;
+                    // window.history.back();
+                    // setTimeout(() => location.reload(), 100);
                 }
                 else {
                     registerError.innerHTML = "<i class='bx bx-error-circle me-1'></i> Username exists.";

@@ -1,15 +1,8 @@
-<!-- <?php
-        if (isset($_SESSION['role']) and $_SESSION['role'] == 'user') {
-            echo "<h2> Welcome " . $_SESSION['username'] . "</h2>";
-        }
-        ?> -->
-<?php include "app/utils.php" ?>
-
 <div class="container">
-    <div class="banner container" style="background-image: url('<?= IMAGE_PATH ?>bg-purple.jpg')">
+    <div class="banner container" style="background-image: url('<?= e(IMAGE_PATH . "bg-purple.jpg") ?>')">
         <h1>Shopping with joy</h1>
         <div class="container">
-            <form id="search-item" action="index.php?page=product" method="POST">
+            <form id="search-item" action="<?= e(BASE_URL . 'product/')?>" method="POST">
                 <div id="search-bar">
                     <input type="text" name='title' placeholder="Search your item">
                     <button type="submit" class="btn-transparent"><i class='bx bx-search-alt'></i></button>
@@ -28,16 +21,16 @@
             <div class="flex overflow-x stretch">
                 <?php foreach ($popular as $pop): ?>
                     <a
-                        href="<?= PRODUCT_URL . slugify($pop["title"]) . "-" . $pop["id"]; ?>"
+                        href="<?= e(PRODUCT_URL . slugify($pop["title"]) . "-" . $pop["id"]) ?>"
                         class="card container space-between">
                         <div>
-                            <img src="<?= IMAGE_PATH . $pop["imageLink"] ?>" alt="">
-                            <h3 class="mt-2"><?= $pop['title'] ?></h3>
+                            <img src="<?= e(IMAGE_PATH . $pop["imageLink"]) ?>" alt="">
+                            <h3 class="mt-2"><?= e($pop['title']) ?></h3>
                         </div>
                         <div class="flex space-between end">
                             <!-- <h2>$<?= $pop['price'] ?></h2> -->
                             <?php getDiscount($pop) ?>
-                            <span class="flex c-yellow"><?= $pop['salesAmount'] ?><i class='bx bxs-heart'></i></span>
+                            <span class="flex c-yellow"><?= e($pop['salesAmount']) ?><i class='bx bxs-heart'></i></span>
                         </div>
                     </a>
                 <?php endforeach; ?>
@@ -46,7 +39,7 @@
                 <i class='bx bx-chevron-right'></i>
             </button>
         </div>
-        <a href="<?= PRODUCT_URL ?>">View all products<i class='ms-1 bx bx-arrow-back bx-rotate-180' ></i></a>
+        <a href="<?= PRODUCT_URL ?>">View all products<i class='ms-1 bx bx-arrow-back bx-rotate-180'></i></a>
     </div>
     <div class="home-box" id="home-categories">
         <h1>Our Current Collections</h1>
@@ -58,10 +51,10 @@
             <div class="flex overflow-x stretch">
                 <?php foreach ($categories as $cat): ?>
                     <a
-                        href="<?= PRODUCT_URL ?>category/<?= slugify($cat['catName']) ?>-<?= $cat['catID'] ?>"
+                        href="<?= e(PRODUCT_URL . "category/" . slugify($cat['catName']) . "-" . $cat['catID']) ?>"
                         class="card container">
-                        <img src="<?= IMAGE_PATH . $cat["imageLink"] ?>" alt="">
-                        <span><?= $cat['catName'] ?></span>
+                        <img src="<?= e(IMAGE_PATH . $cat["imageLink"]) ?>" alt="">
+                        <span><?= e($cat['catName']) ?></span>
                     </a>
                 <?php endforeach; ?>
             </div>
@@ -71,31 +64,29 @@
         </div>
     </div>
 </div>
-
 <script>
-    function debounce(fn, delay = 500) {
-        let timeout;
-        return (...args) => {
-            clearTimeout(timeout);
-            timeout = setTimeout(() => fn.apply(this, args), delay);
-        };
-    }
-
     function overflowMove(id, amount) {
         const container = document.querySelector(`#${id} .overflow-x`);
         const card = container.querySelector(".card");
 
         const cardStyle = getComputedStyle(card);
         const gap = parseFloat(getComputedStyle(container).gap) || 0;
-        
+
         const cardWidth = card.offsetWidth + parseFloat(cardStyle.marginLeft) + parseFloat(cardStyle.marginRight) + gap;
         const isMobile = window.matchMedia("(max-width: 480px)").matches;
-    
+
         container.scrollBy({
             left: isMobile ? (amount > 0 ? cardWidth : -cardWidth) : amount,
             behavior: "smooth"
         });
     }
+</script>
+<script type="module">
+    import {
+        slugify,
+        debounce
+    } from "<?= SCRIPT_PATH . "config.js" ?>"
+
     const searchbar = document.querySelector("#search-item input");
     const hintBox = document.querySelector("#search-hint");
     searchbar.addEventListener('input', debounce(async () => {
@@ -105,7 +96,7 @@
 
         if (!query) return;
 
-        const url = `api.php?page=product&title=${query}`;
+        const url = `${window.BASE_URL}/api.php?page=product&title=${query}`;
         try {
             const response = await fetch(url);
             const result = await response.json();
@@ -123,7 +114,6 @@
                 });
 
                 hintBox.appendChild(ul);
-                console.log(ul);
             }
         } catch (err) {
             console.log(err);

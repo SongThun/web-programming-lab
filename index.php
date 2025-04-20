@@ -4,6 +4,7 @@ require_once __DIR__ . '/app/controllers/ProductController.php';
 require_once __DIR__ . '/app/controllers/AuthController.php';
 require_once __DIR__ . '/app/controllers/UserController.php';
 require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/app/utils.php';
 ?>
 
 <?php
@@ -48,7 +49,7 @@ $user_controller = new UserController();
         window.BASE_URL = BASE_URL;
         window.API = "<?= API ?>";
     </script>
-    <script type="module" src="<?= $baseUrl ?>public/js/config.js"></script>
+    <script type="module" src="<?= e(SCRIPT_PATH . "config.js") ?>"></script>
 
     <title>Lorem ipsum</title>
 </head>

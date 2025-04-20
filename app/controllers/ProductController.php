@@ -17,7 +17,7 @@ class ProductController
 
         $get_cat = isset($_GET['category']) ? trim($_GET['category']) : "";
         if (!empty($get_cat)) {
-            $cat = explode('-',$get_cat);
+            $cat = explode('-', $get_cat);
             $get_cat = end($cat);
         }
         $filter_cat = (!empty($get_cat)) ? [$get_cat] : array_column($categories, 'catID');
@@ -60,7 +60,7 @@ class ProductController
             $item_split = explode("-", $item_info);
             $item_id = end($item_split);
             // $item_id = $_POST['id'];
-            
+
             $item = $this->model->get_item($item_id);
             $similar_items = $this->model->get_similar($item_id, 5);
             require __DIR__ . "/../views/user/product/item.php";
@@ -75,15 +75,35 @@ class ProductController
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $data = json_decode(file_get_contents("php://input"), true);
             $data["discount"] = round($data["discount"] / 100, 2);
+
             $imageData = $data["imageLink"];
-            $imageData = preg_replace('/^data:image\/\w+;base64,/', '', $imageData);
-            $decodedData = base64_decode($imageData);
-            $imageName = strtolower($data['title']);
-            $imagePath = 'public/images/' . str_replace(' ', '-', $imageName);
-            if (!file_exists($imagePath)) {
-                file_put_contents($imagePath, $decodedData);
+
+            // Extract image extension and validate base64
+            if (
+                $imageData &&
+                preg_match('/^data:image\/(\w+);base64,/', $imageData, $type)
+            ) {
+                $imageDataClean = substr($imageData, strpos($imageData, ',') + 1);
+                $imageDataClean = trim($imageDataClean);
+
+                if (!empty($imageDataClean)) {
+                    $decodedData = base64_decode($imageDataClean);
+                    if ($decodedData !== false) {
+                        $imageExt = strtolower($type[1]);
+                        $imageName = strtolower(str_replace(' ', '-', $data['title'])) . '.' . $imageExt;
+                        $imagePath = 'public/images/' . $imageName;
+
+                        if (!file_exists($imagePath)) {
+                            file_put_contents($imagePath, $decodedData);
+                        }
+
+                        $data['imageLink'] = $imageName;
+                    }
+                }
+            } else {
+                $data['imageLink'] = ""; // Clear imageLink if invalid
             }
-            $data['imageLink'] = $imageName;
+
             $res = $this->model->insert($data);
 
             header("Content-Type: application/json");
@@ -91,6 +111,7 @@ class ProductController
             exit();
         }
     }
+
     public function edit()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
@@ -150,13 +171,14 @@ class ProductController
             exit();
         }
     }
-    public function get_hint() {
+    public function get_hint()
+    {
         if (isset($_GET['title'])) {
             $title = $_GET['title'];
             $res = $this->model->match($title);
             header("Content-Type: application/json");
             echo json_encode($res);
             exit();
-        } 
+        }
     }
 }

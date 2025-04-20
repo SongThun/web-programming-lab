@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . "/config.php";
+require_once __DIR__ . "/app/utils.php";
 require_once __DIR__ . "/app/controllers/AdminController.php";
 session_start();
 
@@ -38,7 +39,7 @@ $controller = new AdminController();
         window.BASE_URL = BASE_URL;
         window.API = "<?= API ?>";
     </script>
-    <script type="module" src="<?= $baseUrl ?>public/js/config.js"></script>
+    <script type="module" src="<?= e(SCRIPT_PATH . "config.js") ?>"></script>
     <title>Lorem ipsum Admin</title>
 </head>
 

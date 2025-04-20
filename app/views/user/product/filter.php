@@ -5,7 +5,7 @@ $max_price = ceil($prices['max_price']);
 <div id="filter">
     <div id="filter-search" class="mb-2">
         <i class='c-iris bx bx-search bx-rotate-90 me-2'></i>
-        <input type="text" placeholder="search an item..." value=<?= $title ?>>
+        <input type="text" placeholder="search an item..." value=<?= e($title) ?>>
     </div>
     <div id="filter-categories" class="mt-2">
         <h2>Categories</h2>
@@ -18,8 +18,8 @@ $max_price = ceil($prices['max_price']);
                 <?php foreach ($categories as $cat): ?>
                     <button
                         class=<?= in_array($cat['catID'], $filter_cat) ? "btn-active" : "" ?>
-                        value=<?= $cat['catID'] ?>>
-                        <?= $cat['catName'] ?>
+                        value=<?= e($cat['catID']) ?>>
+                        <?= e($cat['catName']) ?>
                     </button>
                 <?php endforeach; ?>
             </div>

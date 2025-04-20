@@ -1,28 +1,26 @@
-<?php include "app/utils.php";?>
-
 <div class="grid-1-4 container-inset">
     <?php require __DIR__ . "/filter.php"; ?>
     <div class="container">
         <?php require __DIR__ . "/sort.php"; ?>
         <div id="product-display">
-            <?php if ($products != null and count($products) > 0): ?>
+            <?php if ($products != null && count($products) > 0): ?>
                 <?php foreach ($products as $prod): ?>
-                    <a class="card container" href="<?= PRODUCT_URL . slugify($prod["title"]) . "-" . $prod["id"]; ?>">
-                        <div class="img-div" style="background-image: url('<?= IMAGE_PATH . $prod["imageLink"] ?>')">
+                    <a class="card container" href="<?= PRODUCT_URL . slugify($prod["title"]) . "-" . htmlspecialchars($prod["id"]) ?>">
+                        <div class="img-div" style="background-image: url('<?= IMAGE_PATH . htmlspecialchars($prod["imageLink"]) ?>')">
                             <div class="flex space-between">
-                                <button class="tag tag-left"><?= $prod["catName"] ?></button>
-                                <button class="tag tag-right flex"><?= $prod['salesAmount'] ?><i class='bx bxs-heart'></i></button>
+                                <button class="tag tag-left"><?= htmlspecialchars($prod["catName"]) ?></button>
+                                <button class="tag tag-right flex"><?= htmlspecialchars($prod['salesAmount']) ?><i class='bx bxs-heart'></i></button>
                             </div>
                         </div>
                         <div class="img-info">
                             <span class="flex-column space-between">
-                                <h1><?= $prod["title"] ?></h1>
-                                <!-- <span>$<?= $prod["price"] ?></span> -->
-                                 <?php getDiscount($prod) ?>
+                                <h1><?= htmlspecialchars($prod["title"]) ?></h1>
+                                <!-- <span>$<?= htmlspecialchars($prod["price"]) ?></span> -->
+                                <?php getDiscount($prod) ?>
                             </span>
                             <button
                                 class="add-cart-btn"
-                                data-id="<?= $prod['id'] ?>"
+                                data-id="<?= htmlspecialchars($prod['id']) ?>"
                                 data-title="<?= htmlspecialchars($prod['title'], ENT_QUOTES) ?>">
                                 <i class='bx bx-cart-add'></i>
                             </button>
@@ -38,7 +36,7 @@
 </div>
 
 
-<script type="module" src="<?= SCRIPT_PATH ?>load_products.js"></script>
+<script type="module" src="<?= e(SCRIPT_PATH . "load_products.js") ?>"></script>
 <!-- Add to Cart Handler -->
 <script>
     async function addItem(id, title, e) {

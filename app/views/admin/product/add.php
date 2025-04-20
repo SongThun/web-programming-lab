@@ -30,7 +30,7 @@
                         <label>Discount:</label>
                         <div class="input-wrap">
                             <span class="ms-1">%</span>
-                            <input class="input-hidden" name="discount" type="number" step="0.01">
+                            <input class="input-hidden" name="discount" type="number" min="0" step="0.01" value="0">
                         </div>
                     </div>
                     <div class="input-field">
